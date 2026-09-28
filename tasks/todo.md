@@ -54,15 +54,15 @@
 
 ## Fase 2: Camino de conversión
 
-- [ ] **T5. Helpers y CTAs de contacto** · M · Depende de: T2
+- [x] **T5. Helpers y CTAs de contacto** · M · ✅ 2026-09-28
   - **Qué:** crear el helper `whatsappUrl(mensaje)` (formato `wa.me` y codificación del texto), el componente `Button` (base shadcn adaptada) y los componentes `WhatsAppCta` y `EmailCta` (con copiar al portapapeles y feedback de "Copiado"). El ícono de WhatsApp es un SVG inline, sin librería de íconos solo para eso.
   - **Aceptación:**
     - El helper genera `https://wa.me/5492614160956?text=…` con el mensaje de la spec y el nombre tomado de `brand.ts`. Tiene tests.
     - Copiar el email muestra un feedback accesible (`aria-live`).
-  - **Verificar:** `pnpm test` · **manual: abrir el link en un celular y confirmar que abre el chat correcto.**
+  - **Verificar:** `pnpm test` · **manual (pendiente, en T9): abrir el link en un celular y confirmar que abre el chat correcto.**
   - **Archivos:** `src/lib/contact.ts`, `src/components/ui/Button.tsx`, `src/components/contact/WhatsAppCta.tsx`, `src/components/contact/EmailCta.tsx`, `tests/contact.test.ts`.
 
-- [ ] **T6. Header** · M · Depende de: T5
+- [x] **T6. Header** · M · ✅ 2026-09-28
   - **Qué:** header con wordmark, navegación por anclas, sección activa, compactación al scrollear y CTA "Hablemos". En móvil, menú con `<dialog>` nativo.
   - **Aceptación:**
     - El menú móvil atrapa el foco, cierra con Esc y devuelve el foco al botón.
@@ -71,7 +71,7 @@
   - **Verificar:** `pnpm test:e2e` (navegación con teclado en el menú móvil) · manual en 375 px.
   - **Archivos:** `src/components/layout/Header.tsx`, `src/components/layout/MobileNav.tsx`, `src/content/es/site.ts`, `e2e/header.spec.ts`.
 
-- [ ] **T7. Botón flotante de WhatsApp** · S · Depende de: T5
+- [x] **T7. Botón flotante de WhatsApp** · S · ✅ 2026-09-28
   - **Qué:** botón fijo, integrado al sistema visual, que aparece después del hero y se oculta mientras el CTA final está en pantalla. En desktop se expande con el hover.
   - **Aceptación:**
     - Está presente en todas las páginas.
@@ -81,7 +81,7 @@
   - **Verificar:** `pnpm test:e2e` (visible tras scroll y oculto en el CTA final) · manual en un celular.
   - **Archivos:** `src/components/contact/FloatingWhatsApp.tsx`, `src/app/layout.tsx`, `e2e/floating-whatsapp.spec.ts`.
 
-- [ ] **T8. Footer, CTA final y `/contacto`** · M · Depende de: T5
+- [x] **T8. Footer, CTA final y `/contacto`** · M · ✅ 2026-09-28
   - **Qué:** crear la sección `FinalCta` (WhatsApp como opción principal y email como secundaria), el footer (ubicación, email copiable, GitHub y año) y la página `/contacto` que reutiliza `FinalCta`.
   - **Aceptación:**
     - Desde `/`, `/contacto` y la 404 se puede iniciar WhatsApp en 1 clic.

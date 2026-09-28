@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { siteUrl } from "@/config/site";
 
 /** Rutas públicas. Se amplía a medida que se suman páginas y casos. */
-const routes = ["/"];
+const routes = ["/", "/contacto"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((path) => ({

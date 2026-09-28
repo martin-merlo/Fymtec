@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { FloatingWhatsApp } from "@/components/contact/FloatingWhatsApp";
+import { Footer } from "@/components/layout/Footer";
+import { Header } from "@/components/layout/Header";
 import { brand } from "@/config/brand";
 import { fontVariables } from "@/config/fonts";
 import { isIndexable, siteUrl } from "@/config/site";
 import { common } from "@/content/es/common";
+import { contact } from "@/content/es/contact";
+import { whatsappUrl } from "@/lib/contact";
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,
@@ -25,7 +30,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           {common.skipToContent}
         </a>
+        <Header />
         {children}
+        <Footer />
+        <FloatingWhatsApp
+          href={whatsappUrl(contact.whatsappMessage(brand.name))}
+          label={contact.whatsappAria}
+        />
       </body>
     </html>
   );
