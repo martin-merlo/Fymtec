@@ -96,7 +96,7 @@ Cinco secciones, en este orden: **Inicio → Metodología → Clientes → Proye
 | Presencia que convierte          | "Mi negocio no se ve profesional en internet" / "La gente no me encuentra ni me contacta" | Sitios y landings pensados para generar consultas         | Roma Barber Club, Salomón Barrios |
 | Sitios que podés gestionar       | "Mi web está vieja y depende de otro para cualquier cambio"                               | Rediseño y migración a plataformas editables              | International Freight Forwarder   |
 | Sistemas y plataformas a medida  | "Manejo todo con planillas, mensajes y papeles"                                           | Aplicaciones y sistemas con funciones propias del negocio | Liga Mendocina de Ajedrez         |
-| Visibilidad en buscadores        | "No aparezco en Google"                                                                   | Auditoría e implementación de SEO técnico                 | La Retama                         |
+| Visibilidad en buscadores        | "No aparezco en Google"                                                                   | Auditoría e implementación de SEO técnico                 | La Retama                         |
 | _Automatización e integraciones_ | "Pierdo tiempo en tareas repetitivas"                                                     | Automatizar procesos y conectar herramientas              | Mención menor, sin proyecto       |
 
 - **Motion:** los bloques entran escalonados (**jerarquía**) y reaccionan al hover (**feedback**).
@@ -119,13 +119,13 @@ Cinco secciones, en este orden: **Inicio → Metodología → Clientes → Proye
 - **Objetivo:** mostrar que negocios reales confiaron en Fymtec, en un vistazo.
 - **Contenido:** una franja o grilla con los 5 clientes. Por cada uno: **nombre**, **rubro** y **qué se hizo** en una línea.
 
-| Cliente                         | Rubro (_borrador_)    | Qué se hizo (_borrador_)                   |
-| ------------------------------- | --------------------- | ------------------------------------------ |
-| International Freight Forwarder | Logística             | Rediseño del sitio y migración a WordPress |
-| Liga Mendocina de Ajedrez       | Institución deportiva | Sitio institucional con ranking y torneos  |
-| Roma Barber Club                | Barbería              | Landing comercial con turnos y contacto    |
-| Salomón Barrios                 | Arte                  | Portfolio de artista                       |
-| La Retama                       | _a confirmar_         | Auditoría e implementación SEO             |
+| Cliente                         | Rubro (_borrador_)           | Qué se hizo (_borrador_)                   |
+| ------------------------------- | ---------------------------- | ------------------------------------------ |
+| International Freight Forwarder | Logística                    | Rediseño del sitio y migración a WordPress |
+| Liga Mendocina de Ajedrez       | Institución deportiva        | Sitio institucional con ranking y torneos  |
+| Roma Barber Club                | Barbería                     | Landing comercial con turnos y contacto    |
+| Salomón Barrios                 | Arte                         | Portfolio de artista                       |
+| La Retama                       | _a confirmar con el cliente_ | Auditoría SEO (en curso)                   |
 
 - **Reglas:** sin logos de clientes salvo permiso explícito (sin logos, se usa una tipografía cuidada); **sin testimonios inventados**. Si más adelante hay testimonios reales con permiso, esta sección es su lugar.
 - **Motion:** entrada escalonada (**jerarquía**); en desktop, el hover resalta el cliente y, si tiene caso, ofrece "Ver proyecto" (**feedback**).
@@ -143,7 +143,7 @@ Cinco secciones, en este orden: **Inicio → Metodología → Clientes → Proye
 | 2     | Liga Mendocina de Ajedrez       | Grande        | Funcionalidad compleja (ranking, torneos, clubes)           |
 | 3     | Roma Barber Club                | Medio         | Presencia comercial, imagen, turnos                         |
 | 4     | Salomón Barrios                 | Medio         | Sensibilidad estética e identidad                           |
-| —     | La Retama (breve)               | Fila compacta | Único caso de SEO puro                                      |
+| —     | La Retama (breve)               | Fila compacta | Auditoría SEO en curso: muestra diagnóstico, sin resultados |
 
 - **Motion:** imágenes con revelado por máscara (**storytelling**), profundidad sutil en hover y cursor contextual "Ver proyecto" en desktop (**feedback**). Al hacer clic, transición a la portada del caso (**orientación**).
 - **Móvil:** una tarjeta por fila; la información es visible sin hover.
@@ -190,7 +190,7 @@ Los bloques son opcionales y reordenables por caso: cada caso usa los que le sir
 | **Liga Mendocina de Ajedrez**       | Completo | Sitio institucional con funcionalidad real: ranking, torneos, clubes afiliados, galería y noticias                                              | Contexto → Solución (módulos) → Decisiones (modelo de datos del ranking, cómo se actualiza el contenido) → Tecnologías | Recorrido por módulos, con capturas por sección                    |
 | **Roma Barber Club**                | Visual   | Presencia comercial con foco en imagen, servicios y turnos o contacto                                                                           | Portada → Galería grande → Qué hice yo (breve) → Tecnologías                                                           | Recorrido visual de la landing, desktop y móvil                    |
 | **Salomón Barrios**                 | Visual   | Sensibilidad estética: un sitio que se pone al servicio de la obra del artista                                                                  | Portada → Galería → Qué hice yo (breve)                                                                                | Presentación inmersiva de la obra y la navegación                  |
-| **La Retama** _(secundario)_        | Breve    | Auditoría SEO → implementación → mejoras                                                                                                        | Contexto → Qué se auditó → Qué se implementó → Resultado cualitativo                                                   | Checklist o hallazgos resumidos                                    |
+| **La Retama** _(secundario)_        | Breve    | Auditoría SEO: qué se revisó y qué se recomendó (sin implementación ni resultados todavía)                                                      | Contexto → Qué se auditó → Qué se implementó → Resultado cualitativo                                                   | Checklist o hallazgos resumidos                                    |
 
 > ❓ **Decisión pendiente (V4):** para completar los casos necesito, por cada uno, el **contexto real** (qué tenía antes el cliente, qué pidió), el **alcance de tu trabajo**, el **stack**, el **año**, el **link en vivo** y el material visual. Te lo pido caso por caso cuando lleguemos a esa tarea.
 
@@ -255,4 +255,4 @@ Resumen para validar que cada efecto tiene una función y que no se acumulan pie
 | V5  | Foto                          | ✅ Sin foto. ~~"Detrás del estudio"~~ se elimina en v1.1: la persona aparece en una línea de Contacto          |
 | V6  | Secciones (v1.1)              | ✅ Inicio, Metodología, Clientes, Proyectos, Contacto                                                          |
 | V7  | Clientes vs Proyectos (v1.1)  | ✅ Clientes = prueba social breve; Proyectos = casos en profundidad                                            |
-| V8  | Rubro de La Retama            | ❓ A confirmar                                                                                                 |
+| V8  | La Retama                     | ✅ Cliente real, solo auditoría por ahora; el rubro se muestra cuando lo confirmes                             |

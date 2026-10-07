@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -92 399 399">
+  <style>
+    .s { fill: #202d34; }
+    .b { fill: #1f6998; }
+    @media (prefers-color-scheme: dark) {
+      .s { fill: #f1f5f8; }
+      .b { fill: #2678ad; }
+    }
+  </style>
+  <path class="s" d="M205 103 153 84 136 65 130 65 0 215 180 215 133 153Z" />
+  <path class="b" d="M228.5 0 162 75 198 88 229 80 215 93 236 103 187 154 292 215 399 215Z" />
+</svg>

@@ -36,7 +36,7 @@ Soluciones digitales para negocios, no solo "hacer páginas web": desarrollo web
 - Entre 3 y 5 casos fuertes, con **formato variable**: algunos como case study completo, otros como presentación más visual.
 - Importa más la calidad de la evidencia que la cantidad. El resto va como proyectos secundarios.
 - Cada caso se cuenta con honestidad: contexto o problema → solución → qué hice yo → tecnologías → decisiones de diseño/desarrollo → resultado visual o funcional.
-- Material disponible: Roma Barber Club, International Freight Forwarder, Liga Mendocina de Ajedrez, portfolio de Salomón Barrios y la auditoría e implementación SEO de La Retama.
+- Material disponible: Roma Barber Club, International Freight Forwarder, Liga Mendocina de Ajedrez, portfolio de Salomón Barrios y la auditoría SEO de La Retama (por ahora solo auditoría).
 
 ## Restricciones
 

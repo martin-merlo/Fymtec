@@ -24,6 +24,8 @@
   --color-cta-fg: var(--cta-fg);
   --color-border-strong: var(--border-strong);
   --color-danger: var(--danger);
+  --color-logo-slate: var(--logo-slate);
+  --color-logo-blue: var(--logo-blue);
 
   /* Nombres que usan los componentes de shadcn/ui */
   --color-background: var(--background);

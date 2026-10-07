@@ -8,4 +8,6 @@ export const ogTheme = {
   foreground: "#f1f5f8", // = --brand-snow
   muted: "#9baab6", // = --brand-gray-400
   highlight: "#5cb3e8", // = --brand-sky-400
+  logoSlate: "#f1f5f8", // = --logo-slate (tema oscuro)
+  logoBlue: "#2678ad", // = --logo-blue (tema oscuro)
 } as const;

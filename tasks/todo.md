@@ -114,14 +114,15 @@
   - **Qué:** `brand.ts` con Fymtec, tagline y claim; primitivos de la paleta de Fymtec y semánticos para tema oscuro y claro en `tokens.css`; tokens `cta` separados del acento de texto; navegación con las 5 secciones.
   - **Aceptación:** contraste AA verificado en ambos temas (SPEC §3.1); tests, lint y e2e en verde.
 
-- [ ] **T37. Logo SVG (isotipo + wordmark)** · M · Depende de: T36 · 🧑 _Validación tuya_
+- [x] **T37. Logo SVG (isotipo + wordmark)** · M · ✅ 2026-10-07 · 🧑 _Falta tu validación visual_
   - **Qué:** redibujar el isotipo (dos montañas y el sendero) y el wordmark FYMTEC como SVG a partir de las imágenes de `docs/brand/`. Componente `Logo` con variantes `full` e `isotype`, colores desde tokens (la montaña pizarra se aclara en tema oscuro). Reemplaza al `Wordmark` provisorio en header y footer. Favicon e ícono de app generados desde el isotipo.
   - **Aceptación:**
     - Superpuesto a la imagen original, el isotipo coincide en formas y proporciones (validación tuya).
     - Se ve correcto en los dos temas.
     - Tiene nombre accesible (`brand.name`) y el SVG no se lee dos veces.
   - **Verificar:** comparación visual lado a lado · `pnpm test:e2e`.
-  - **Archivos:** `src/components/brand/Logo.tsx`, `src/app/icon.svg`, `src/components/layout/Header.tsx`, `src/components/layout/Footer.tsx`.
+  - **Archivos:** `src/components/brand/Logo.tsx`, `src/components/brand/logo-paths.ts`, `src/app/icon.svg`, `src/app/apple-icon.png`, `src/components/layout/Header.tsx`, `src/components/layout/Footer.tsx`.
+  - **Resultado:** isotipo trazado del logo horizontal; letras reconstruidas con geometría limpia (trazo 25, altura 173, C con arcos reales). Coincidencia con el original ≈95% de área (la diferencia es un contorno uniforme de ~1 px por el antialias del webp). Favicon SVG adaptado al tema del sistema e ícono de iOS sobre blanco.
 
 - [ ] **T38. Selector de tema** · M · Depende de: T36
   - **Qué:** botón de tema en el header y en el menú móvil; preferencia en `localStorage`; script inline en `<head>` que aplica el tema antes del primer pintado; transición corta de colores (instantánea con reduced-motion). Sin dependencias.

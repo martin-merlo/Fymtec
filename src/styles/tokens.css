@@ -78,6 +78,10 @@
   --border-strong: color-mix(in oklab, var(--brand-snow) 18%, transparent);
   --ring: var(--brand-sky-400);
   --danger: var(--brand-danger-500);
+
+  /* Logo: la montaña pizarra pasa a clara y el azul se aclara un tono (≥3:1) */
+  --logo-slate: var(--brand-snow);
+  --logo-blue: var(--brand-blue-500);
 }
 
 /* ── Nivel 2 · Semánticos: tema claro ──────────────────────────────────── */
@@ -99,6 +103,10 @@
   --border-strong: color-mix(in oklab, var(--brand-ink-900) 22%, transparent);
   --ring: var(--brand-blue-600);
   --danger: var(--brand-danger-700);
+
+  /* Logo: colores originales */
+  --logo-slate: var(--brand-night-800);
+  --logo-blue: var(--brand-blue-600);
 }
 
 /* ── Alias para componentes de shadcn/ui ───────────────────────────────── */

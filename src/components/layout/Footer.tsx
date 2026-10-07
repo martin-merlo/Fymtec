@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Wordmark } from "@/components/brand/Wordmark";
+import { Logo } from "@/components/brand/Logo";
 import { brand } from "@/config/brand";
 import { contact } from "@/content/es/contact";
 import { footer, nav } from "@/content/es/site";
@@ -13,8 +13,8 @@ export function Footer() {
     <footer className="border-t px-4 pt-16 pb-28 sm:px-6 md:pb-16 lg:px-8">
       <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-[2fr_1fr_1fr]">
         <div className="flex flex-col gap-3">
-          <Wordmark className="text-xl" />
-          <p className="max-w-xs text-fg-muted">{brand.tagline}</p>
+          <Logo className="h-8 self-start" />
+          <p className="max-w-xs text-fg-muted">{brand.claim}</p>
           <p className="text-sm text-fg-muted">{brand.location}</p>
         </div>
 

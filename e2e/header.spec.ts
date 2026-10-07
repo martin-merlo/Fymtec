@@ -12,6 +12,9 @@ test.describe("header", () => {
       header.getByRole("navigation", { name: "Principal" }),
     ).toBeVisible();
     await expect(
+      header.getByRole("link", { name: "Fymtec · Ir al inicio" }),
+    ).toHaveAttribute("href", "/");
+    await expect(
       header.getByRole("link", { name: "Hablemos" }),
     ).toHaveAttribute("href", /^https:\/\/wa\.me\//);
     await expect(

@@ -1,6 +1,7 @@
-import { Wordmark } from "@/components/brand/Wordmark";
+import { Logo } from "@/components/brand/Logo";
 import { WhatsAppCta } from "@/components/contact/WhatsAppCta";
 import { HeaderShell } from "@/components/layout/HeaderShell";
+import { brand } from "@/config/brand";
 import { contact } from "@/content/es/contact";
 import { nav } from "@/content/es/site";
 
@@ -8,8 +9,8 @@ import { nav } from "@/content/es/site";
 export function Header() {
   return (
     <HeaderShell
-      wordmark={<Wordmark />}
-      homeLabel={nav.homeLink}
+      wordmark={<Logo decorative className="h-6 sm:h-7" />}
+      homeLabel={`${brand.name} · ${nav.homeLink}`}
       items={nav.items}
       cta={<WhatsAppCta label={contact.whatsappShort} size="default" />}
       mobileCta={<WhatsAppCta size="xl" className="w-full" />}

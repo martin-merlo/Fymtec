@@ -93,13 +93,13 @@ La navegación y la home tienen **5 secciones, en este orden: Inicio, Metodolog�
 
 **Asignación (confirmada en v0.2):**
 
-| Caso                                   | Rol en el sitio | Formato  | Por qué                                                                                                                          |
-| -------------------------------------- | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| International Freight Forwarder        | Destacado       | Completo | Rediseño y migración a WordPress con ACF: hay UX, contraste, estructura y una decisión técnica clara (contenido editable).       |
-| Liga Mendocina de Ajedrez              | Destacado       | Completo | Complejidad funcional: rankings, torneos, clubes, galería y noticias.                                                            |
-| Roma Barber Club                       | Destacado       | Visual   | Landing comercial con foco en imagen, servicios y turnos.                                                                        |
-| Salomón Barrios (portfolio de artista) | Destacado       | Visual   | Proyecto de identidad y estética.                                                                                                |
-| La Retama (auditoría SEO)              | Secundario      | Breve    | Diagnóstico → implementación. Se puede promover a destacado si durante el diseño aporta variedad (es el único caso de SEO puro). |
+| Caso                                   | Rol en el sitio | Formato  | Por qué                                                                                                                                                     |
+| -------------------------------------- | --------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| International Freight Forwarder        | Destacado       | Completo | Rediseño y migración a WordPress con ACF: hay UX, contraste, estructura y una decisión técnica clara (contenido editable).                                  |
+| Liga Mendocina de Ajedrez              | Destacado       | Completo | Complejidad funcional: rankings, torneos, clubes, galería y noticias.                                                                                       |
+| Roma Barber Club                       | Destacado       | Visual   | Landing comercial con foco en imagen, servicios y turnos.                                                                                                   |
+| Salomón Barrios (portfolio de artista) | Destacado       | Visual   | Proyecto de identidad y estética.                                                                                                                           |
+| La Retama (auditoría SEO)              | Secundario      | Breve    | Por ahora **solo la auditoría** (diagnóstico y recomendaciones); el trabajo sigue en curso. Se muestra como breve y se amplía si se suma la implementación. |
 
 **Reglas de honestidad (no negociables):**
 
@@ -138,7 +138,7 @@ type CaseStudy = {
 
 Toda la identidad pasa por tokens. **Ningún componente usa colores, fuentes ni radios literales.**
 
-**Logo.** Isotipo (dos montañas: pizarra y azul, con un sendero en zigzag entre ambas) más el wordmark **FYMTEC** ("FYM" en pizarra, "TEC" en azul). Se implementa como componente SVG (`src/components/brand/Logo.tsx`) redibujado a partir de las imágenes originales, con los colores tomados de los tokens para que funcione en los dos temas. En fondo oscuro, la montaña pizarra pasa a un tono claro, como en las piezas de marca sobre fondo oscuro.
+**Logo.** Isotipo (dos montañas: pizarra y azul, con un sendero en zigzag entre ambas) más el wordmark **FYMTEC** ("FYM" en pizarra, "TEC" en azul). Se implementa como componente SVG (`src/components/brand/Logo.tsx`, trazados en `logo-paths.ts`) redibujado a partir de las imágenes originales de `docs/brand/`, con variantes `full` e `isotype` y colores desde los tokens `--logo-slate` y `--logo-blue`. En tema oscuro, la montaña pizarra y "FYM" pasan a `#F1F5F8` y el azul a `#2678AD` (3.9:1 sobre el fondo, ≥3:1 para gráficos). El favicon (`src/app/icon.svg`) se adapta al tema del sistema y el ícono de iOS (`apple-icon.png`) va sobre blanco.
 
 **Paleta** (colores del logo medidos sobre los originales: azul `#1F6998`, pizarra `#202D34`):
 
@@ -448,8 +448,14 @@ No se busca un porcentaje de cobertura: se prueba lo que puede romperse (conteni
 | 18  | Detrás del estudio | Se elimina de la home; la persona aparece en Contacto, footer y `/estudio`, que se mantiene                              |
 | 19  | Logo               | Se redibuja como SVG a partir de las imágenes; Martín valida que quede idéntico                                          |
 
+### Resueltas el 2026-10-07 (cont.)
+
+| #   | Tema       | Decisión                                                                                                                                                                                                |
+| --- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 20  | La Retama  | Cliente real; por ahora **solo auditoría SEO** (sin implementación). No se presenta como implementado ni con resultados                                                                                 |
+| 21  | Tipografía | No hay fuente de marca: se propone una en la etapa de diseño (T29), que acompañe al wordmark geométrico                                                                                                 |
+| 22  | Fotografía | Se usan fotos de montaña de bancos con licencia libre para uso comercial (por ejemplo Unsplash o Pexels), registradas en `docs/components-origin.md` con autor y licencia; optimizadas con `next/image` |
+
 ### Abiertas
 
 1. Qué 2–3 piezas firma usar (etapa de diseño).
-2. **Tipografía de marca:** las piezas de Instagram usan una sans pesada y geométrica. ¿Hay una fuente definida? Si no, se propone una en la etapa de diseño.
-3. **Fotografía:** las piezas de marca usan fotos de montaña. ¿Se usan en el sitio? Requieren fotos propias o con licencia.
