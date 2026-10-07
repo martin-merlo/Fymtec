@@ -1,7 +1,7 @@
-# Plan de implementación: sitio de marca / estudio de software
+# Plan de implementación: sitio de Fymtec
 
-> **Estado:** borrador v0.1 · 2026-09-28 · pendiente de aprobación
-> **Fuentes:** [`SPEC.md`](../SPEC.md) (v1.0) · [`docs/secciones.md`](../docs/secciones.md) (v1.0) · [`docs/intent/portfolio.md`](../docs/intent/portfolio.md)
+> **Estado:** v0.2 · 2026-10-07 · actualizado por la marca Fymtec (fase 2.5 nueva, fase 3 reordenada)
+> **Fuentes:** [`SPEC.md`](../SPEC.md) (v1.1) · [`docs/secciones.md`](../docs/secciones.md) (v1.1) · [`docs/intent/portfolio.md`](../docs/intent/portfolio.md)
 > **Tareas en detalle:** [`tasks/todo.md`](todo.md)
 
 ## Resumen
@@ -25,38 +25,40 @@ El sitio se despliega en Vercel **desde la fase 2**, así Lighthouse y Speed Ins
 T1 Proyecto base
  ├── T2 Tokens + marca + layout ──┬── T4 SEO base
  │                                ├── T5 CTAs de WhatsApp ── T6 Header ── T7 Botón flotante ── T8 Footer + CTA final + /contacto
- │                                └── T10 Primitivas de motion ── T11 Hero, T12 Servicios, T15 Proceso, T16 Detrás del estudio
+ │                                ├── T36 Marca y paleta ── T37 Logo SVG, T38 Selector de tema
+ │                                └── T10 Primitivas de motion ── T11 Hero, T12 Servicios, T15 Metodología, T16 Clientes
  ├── T3 Testing
  └── T9 Deploy en Vercel + analítica (necesita T8)
 
-T13 Pipeline de contenido (MDX + Zod) ── T14 Trabajos en la home ── T17 Plantilla de caso ── T18 Antes/después
-                                                                   ├── T19 /trabajos
+T13 Pipeline de contenido (MDX + Zod) ── T14 Proyectos en la home ── T17 Plantilla de caso ── T18 Antes/después
+                                                                    ├── T19 /proyectos
                                                                    ├── T20–T24 Contenido de cada caso
                                                                    └── T25 Transición home → caso
-T26 /estudio · T27 404 · T28 Formulario (flag apagado)
+T39 Línea de la persona en Contacto · T26 /estudio · T27 404 · T28 Formulario (flag apagado)
 T29 Selección de piezas firma ── T30–T32 Piezas firma
 T33 Auditoría de performance · T34 Auditoría de accesibilidad y SEO · T35 Lanzamiento
 ```
 
 ## Fases (índice)
 
-| Fase                         | Tareas  | Resultado verificable                                                                       |
-| ---------------------------- | ------- | ------------------------------------------------------------------------------------------- |
-| **1. Base**                  | T1–T4   | El proyecto compila y tiene tokens, marca, tests y SEO base                                 |
-| **2. Camino de conversión**  | T5–T9   | En la URL de Vercel se puede navegar y escribir por WhatsApp o email desde cualquier página |
-| **3. Home**                  | T10–T16 | La home completa con el orden problema → solución → evidencia → confianza → contacto        |
-| **4. Casos**                 | T17–T25 | 4 casos destacados y 1 secundario publicados con contenido real                             |
-| **5. Segunda capa**          | T26–T28 | `/estudio`, 404 y formulario listo detrás de un flag                                        |
-| **6. Diseño: piezas firma**  | T29–T32 | 2–3 efectos protagonistas integrados al sistema visual                                      |
-| **7. Calidad y lanzamiento** | T33–T35 | Criterios de §10 de la spec cumplidos y el sitio lanzado                                    |
+| Fase                         | Tareas       | Resultado verificable                                                                       |
+| ---------------------------- | ------------ | ------------------------------------------------------------------------------------------- |
+| **1. Base**                  | T1–T4        | El proyecto compila y tiene tokens, marca, tests y SEO base                                 |
+| **2. Camino de conversión**  | T5–T9        | En la URL de Vercel se puede navegar y escribir por WhatsApp o email desde cualquier página |
+| **2.5. Identidad Fymtec**    | T36–T38      | Marca, paleta, logo SVG y selector de tema                                                  |
+| **3. Home**                  | T10–T16, T39 | La home completa: Inicio → Metodología → Clientes → Proyectos → Contacto                    |
+| **4. Casos**                 | T17–T25      | 4 casos destacados y 1 secundario publicados con contenido real                             |
+| **5. Segunda capa**          | T26–T28      | `/estudio`, 404 y formulario listo detrás de un flag                                        |
+| **6. Diseño: piezas firma**  | T29–T32      | 2–3 efectos protagonistas integrados al sistema visual                                      |
+| **7. Calidad y lanzamiento** | T33–T35      | Criterios de §10 de la spec cumplidos y el sitio lanzado                                    |
 
 Hay un **checkpoint con revisión tuya** al final de cada fase (ver `todo.md`).
 
 ## Paralelización
 
-- **Seguro de paralelizar:** dentro de la fase 3, las secciones T11, T12, T15 y T16 son independientes una vez hecha T10. En la fase 4, la carga de contenido de cada caso (T20–T24) también es independiente.
+- **Seguro de paralelizar:** dentro de la fase 3, las secciones T11, T12, T15 y T16 son independientes una vez hecha T10. T37 y T38 también son independientes entre sí. En la fase 4, la carga de contenido de cada caso (T20–T24) también es independiente.
 - **Secuencial:** T1 → T2 → T5 (todo depende de los tokens y de `brand.ts`). T13 → T17 (la plantilla depende del modelo de datos).
-- **Depende de vos:** T20–T24 necesitan tu material de cada caso; T29 necesita que elijas los componentes de 21st.dev y Uiverse.
+- **Depende de vos:** T37 necesita tu validación del logo; T16 necesita el rubro de La Retama; T20–T24 necesitan tu material de cada caso; T29 necesita que elijas los componentes de 21st.dev y Uiverse.
 
 ## Riesgos y mitigaciones
 

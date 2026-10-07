@@ -1,6 +1,6 @@
 # Declaración de intención: sitio de marca / estudio de software
 
-> Confirmada el 2026-09-28 tras la entrevista (`interview-me`). Es la fuente de verdad sobre **qué** queremos lograr; el **cómo** vive en [`SPEC.md`](../../SPEC.md).
+> Confirmada el 2026-09-28 tras la entrevista (`interview-me`). **Actualizada el 2026-10-07:** la marca es **Fymtec**, con logo y paleta definidos. Es la fuente de verdad sobre **qué** queremos lograr; el **cómo** vive en [`SPEC.md`](../../SPEC.md).
 
 ## Resultado
 
@@ -45,7 +45,7 @@ Soluciones digitales para negocios, no solo "hacer páginas web": desarrollo web
 - **Performance:** buenos Lighthouse y Core Web Vitals. Progressive enhancement, lazy loading, imágenes optimizadas y respeto por `prefers-reduced-motion`.
 - **SEO:** el propio sitio tiene que demostrar buenas prácticas técnicas de SEO.
 - **Idioma:** todo en español por ahora, con una arquitectura que permita sumar inglés sin rehacer el sitio.
-- **Marca:** nombre, logo, tipografías y paleta todavía abiertos. Se trabaja con design tokens y variables para que cambiar la identidad no implique reconstruir componentes.
+- **Marca:** **Fymtec**, con logo y paleta definidos (2026-10-07); la tipografía sigue abierta. Todo se sigue trabajando con design tokens y variables, para que cambiar la identidad no implique reconstruir componentes.
 
 ## Referencia: Salvatore Informatics
 
@@ -53,7 +53,7 @@ Se toman el nivel de producción, la intención comercial, el storytelling de pr
 
 ## Fuera de alcance (por ahora)
 
-- Definir la identidad final de la marca.
+- ~~Definir la identidad final de la marca.~~ Resuelto: Fymtec.
 - Copiar el diseño de la referencia.
 - Blog o CMS.
 - Backend propio.

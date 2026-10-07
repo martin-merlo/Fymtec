@@ -10,10 +10,11 @@ export type NavItem = {
 export const nav = {
   label: "Principal",
   items: [
-    { label: "Servicios", href: "/#servicios", section: "servicios" },
-    { label: "Trabajos", href: "/#trabajos", section: "trabajos" },
-    { label: "Proceso", href: "/#proceso", section: "proceso" },
-    { label: "Estudio", href: "/estudio" },
+    { label: "Inicio", href: "/#inicio", section: "inicio" },
+    { label: "Metodología", href: "/#metodologia", section: "metodologia" },
+    { label: "Clientes", href: "/#clientes", section: "clientes" },
+    { label: "Proyectos", href: "/#proyectos", section: "proyectos" },
+    { label: "Contacto", href: "/#contacto", section: "contacto" },
   ] satisfies NavItem[],
   openMenu: "Abrir menú",
   closeMenu: "Cerrar menú",

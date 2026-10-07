@@ -30,7 +30,9 @@ test.describe("header", () => {
 
     const dialog = page.getByRole("dialog", { name: "Principal" });
     await expect(dialog).toBeVisible();
-    await expect(dialog.getByRole("link", { name: "Servicios" })).toBeVisible();
+    await expect(
+      dialog.getByRole("link", { name: "Metodología" }),
+    ).toBeVisible();
 
     // El foco no puede escapar al contenido de la página mientras el diálogo está abierto.
     for (let i = 0; i < 8; i++) {

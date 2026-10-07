@@ -14,6 +14,7 @@ export default function Home() {
 
       {/* Bloque temporal hasta T11 (Hero). */}
       <section
+        id="inicio"
         {...marker(HERO_ATTR)}
         className="mx-auto flex min-h-dvh max-w-5xl flex-col justify-center gap-8 px-6 pt-18"
       >
@@ -35,9 +36,7 @@ export default function Home() {
           <div className="rounded-xl border bg-surface-raised p-4">
             surface-raised
           </div>
-          <div className="rounded-xl bg-highlight p-4 text-highlight-fg">
-            highlight
-          </div>
+          <div className="rounded-xl bg-cta p-4 text-cta-fg">cta</div>
         </div>
       </section>
 

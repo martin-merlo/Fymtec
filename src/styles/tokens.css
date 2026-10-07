@@ -1,65 +1,49 @@
 /*
  * Design tokens — la única fuente de verdad visual del sitio.
  *
- * Nivel 1 · Primitivos de marca (--brand-*): paleta y valores crudos PROVISORIOS.
- *   Es lo único que se toca cuando se defina la identidad final.
+ * Nivel 1 · Primitivos de marca (--brand-*): la paleta de Fymtec, derivada del
+ *   logo (azul #1F6998 y pizarra #202D34). Es lo único que se toca si cambia la marca.
  * Nivel 2 · Semánticos: lo que consumen los componentes (vía Tailwind, ver globals.css).
- *   Se definen en función de los primitivos. Los componentes nunca usan primitivos directo.
+ *   Se definen por tema en función de los primitivos. Los componentes nunca usan
+ *   primitivos directo.
  *
- * Dark-first: en v1 solo existe el tema oscuro. Un tema claro futuro es otro bloque
- * de valores semánticos bajo [data-theme="light"], sin tocar componentes.
+ * Temas: dark-first (por defecto) y light, elegidos con data-theme en <html>.
+ * Contrastes verificados (WCAG AA) en SPEC.md §3.1.
  *
  * Tipografías: las variables --brand-font-* las declara next/font (src/config/fonts.ts).
  */
 
 :root {
-  /* ── Nivel 1 · Primitivos de marca (provisorios) ─────────────────────── */
+  /* ── Nivel 1 · Primitivos de marca ───────────────────────────────────── */
 
-  /* Neutros fríos */
-  --brand-neutral-950: oklch(0.145 0.008 265);
-  --brand-neutral-900: oklch(0.185 0.01 265);
-  --brand-neutral-850: oklch(0.225 0.012 265);
-  --brand-neutral-800: oklch(0.27 0.014 265);
-  --brand-neutral-600: oklch(0.45 0.014 265);
-  --brand-neutral-400: oklch(0.7 0.012 265);
-  --brand-neutral-200: oklch(0.87 0.008 265);
-  --brand-neutral-50: oklch(0.975 0.004 265);
+  /* Azul noche (derivado del pizarra del logo) */
+  --brand-night-950: #0a1218;
+  --brand-night-900: #111c24;
+  --brand-night-850: #18252f;
+  --brand-night-800: #202d34; /* pizarra del logo */
+  --brand-night-700: #26343f;
 
-  /* Acento */
-  --brand-accent-400: oklch(0.82 0.14 195);
-  --brand-accent-500: oklch(0.74 0.15 200);
-  --brand-accent-950: oklch(0.2 0.04 210);
+  /* Azul Fymtec */
+  --brand-blue-700: #185a84;
+  --brand-blue-600: #1f6998; /* azul del logo */
+  --brand-blue-500: #2678ad;
+  --brand-sky-400: #5cb3e8; /* celeste: acento legible sobre fondo oscuro */
+
+  /* Neutros */
+  --brand-ink-900: #1b262d;
+  --brand-gray-600: #52616c;
+  --brand-gray-400: #9baab6;
+  --brand-mist-100: #edf1f5;
+  --brand-mist-50: #f6f8fa;
+  --brand-white: #ffffff;
+  --brand-snow: #f1f5f8;
 
   /* Estados */
-  --brand-danger-500: oklch(0.68 0.19 25);
+  --brand-danger-500: #e5534b;
+  --brand-danger-700: #b42318;
 
   /* Forma */
   --brand-radius: 0.75rem;
-}
-
-:root,
-[data-theme="dark"] {
-  color-scheme: dark;
-
-  /* ── Nivel 2 · Semánticos (tema oscuro) ──────────────────────────────── */
-
-  --bg: var(--brand-neutral-950);
-  --surface: var(--brand-neutral-900);
-  --surface-raised: var(--brand-neutral-850);
-  --fg: var(--brand-neutral-50);
-  --fg-muted: var(--brand-neutral-400);
-  --highlight: var(--brand-accent-400); /* color de marca: CTAs, énfasis */
-  --highlight-strong: var(--brand-accent-500);
-  --highlight-fg: var(--brand-accent-950); /* texto sobre --highlight */
-  --border: color-mix(in oklch, var(--brand-neutral-50) 10%, transparent);
-  --border-strong: color-mix(
-    in oklch,
-    var(--brand-neutral-50) 18%,
-    transparent
-  );
-  --ring: var(--brand-accent-400);
-  --danger: var(--brand-danger-500);
-  --radius: var(--brand-radius);
 
   /* Motion — espejados en src/lib/motion.ts para Motion (JS) */
   --motion-duration-fast: 150ms;
@@ -69,24 +53,72 @@
   --motion-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --motion-ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* ── Alias para componentes de shadcn/ui ─────────────────────────────── */
-  /* shadcn consume estos nombres; apuntan a los semánticos de arriba. */
+  --radius: var(--brand-radius);
+}
 
+/* ── Nivel 2 · Semánticos: tema oscuro (por defecto) ───────────────────── */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: var(--brand-night-950);
+  --surface: var(--brand-night-900);
+  --surface-raised: var(--brand-night-850);
+  --fg: var(--brand-snow);
+  --fg-muted: var(--brand-gray-400);
+
+  /* Acento para texto, íconos y detalles (legible sobre fondo oscuro) */
+  --highlight: var(--brand-sky-400);
+  /* CTA: azul Fymtec con texto blanco */
+  --cta: var(--brand-blue-600);
+  --cta-hover: var(--brand-blue-500);
+  --cta-fg: var(--brand-white);
+
+  --border: color-mix(in oklab, var(--brand-snow) 10%, transparent);
+  --border-strong: color-mix(in oklab, var(--brand-snow) 18%, transparent);
+  --ring: var(--brand-sky-400);
+  --danger: var(--brand-danger-500);
+}
+
+/* ── Nivel 2 · Semánticos: tema claro ──────────────────────────────────── */
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: var(--brand-mist-50);
+  --surface: var(--brand-white);
+  --surface-raised: var(--brand-mist-100);
+  --fg: var(--brand-ink-900);
+  --fg-muted: var(--brand-gray-600);
+
+  --highlight: var(--brand-blue-600);
+  --cta: var(--brand-blue-600);
+  --cta-hover: var(--brand-blue-700);
+  --cta-fg: var(--brand-white);
+
+  --border: color-mix(in oklab, var(--brand-ink-900) 12%, transparent);
+  --border-strong: color-mix(in oklab, var(--brand-ink-900) 22%, transparent);
+  --ring: var(--brand-blue-600);
+  --danger: var(--brand-danger-700);
+}
+
+/* ── Alias para componentes de shadcn/ui ───────────────────────────────── */
+/* Se recalculan en cada elemento con data-theme, así un bloque puede cambiar de tema. */
+:root,
+[data-theme] {
   --background: var(--bg);
   --foreground: var(--fg);
   --card: var(--surface);
   --card-foreground: var(--fg);
   --popover: var(--surface-raised);
   --popover-foreground: var(--fg);
-  --primary: var(--highlight);
-  --primary-foreground: var(--highlight-fg);
+  --primary: var(--cta);
+  --primary-foreground: var(--cta-fg);
   --secondary: var(--surface-raised);
   --secondary-foreground: var(--fg);
   --muted: var(--surface-raised);
   --muted-foreground: var(--fg-muted);
-  --accent: var(
-    --surface-raised
-  ); /* en shadcn "accent" = fondo sutil de hover */
+  /* en shadcn "accent" = fondo sutil de hover, no el color de marca */
+  --accent: var(--surface-raised);
   --accent-foreground: var(--fg);
   --input: var(--border-strong);
   --destructive: var(--danger);

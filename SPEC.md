@@ -1,6 +1,6 @@
-# Spec: sitio de marca / estudio de software
+# Spec: sitio de Fymtec
 
-> **Estado:** ✅ aprobada v1.0 · 2026-09-28
+> **Estado:** ✅ aprobada v1.0 · 2026-09-28 · **v1.1 · 2026-10-07:** marca Fymtec definida, paleta, tema claro con selector y nuevas secciones de la home (ver §12)
 > **Detalle de secciones:** [`docs/secciones.md`](docs/secciones.md)
 > **Intención confirmada:** [`docs/intent/portfolio.md`](docs/intent/portfolio.md). Si esta spec contradice la intención, manda la intención.
 
@@ -8,16 +8,16 @@
 
 ## 0. Supuestos (aprobados)
 
-1. **Estructura:** una home larga (landing de marca) más **páginas propias por cada caso destacado** (`/trabajos/[slug]`). Las páginas de caso son la "segunda capa" y además suman SEO.
+1. **Estructura:** una home larga (landing de marca) más **páginas propias por cada caso destacado** (`/proyectos/[slug]`). Las páginas de caso son la "segunda capa" y además suman SEO.
 2. **Contenido en el repo, sin CMS en v1:** los casos viven en **MDX**. El contenido global y reutilizable (servicios, proceso, textos de secciones) vive en **módulos TypeScript** en `src/content/es/`. No se abstrae cada microtexto en un diccionario si eso suma complejidad sin beneficio. La regla es que **los componentes no queden acoplados al branding** y que traducir sea sencillo.
 3. **Stack:** Next.js (App Router) + TypeScript + Tailwind CSS v4 + shadcn/ui + Motion (el paquete sucesor de Framer Motion). Se verifican la versión estable y la documentación oficial de cada uno al implementar (`source-driven-development`). **Mínimas dependencias:** si algo se resuelve bien con CSS o con APIs nativas del navegador sin sumar peso (scroll-driven animations, `IntersectionObserver`, `<dialog>`, View Transitions), se prioriza eso.
 4. **Idioma:** español en `/`. **No hay i18n completa en v1.** La arquitectura la deja preparada: el contenido está separado por idioma (`content/es/`) y los componentes reciben los textos por props o desde esos módulos, así sumar `/en` es agregar `content/en/` y el segmento de ruta.
 5. **Contacto en v1:** WhatsApp y email son los canales reales desde el día uno, y WhatsApp es uno de los canales principales de conversión. Tiene un **botón flotante** en una esquina, **integrado al sistema visual**: conserva el ícono reconocible de WhatsApp, pero no es el clásico botón verde genérico, sino que usa los tokens del sitio. Además aparece en el CTA del header y en el CTA final. El formulario queda **construido pero desactivado** detrás de un flag (`brand.contact.formEnabled = false`). Cuando se active, se envía con un Route Handler + Resend. No hay base de datos.
-6. **Nombre provisorio de la marca:** `Mertech`, usado **exclusivamente como nombre de trabajo**. No se asume que sea el nombre final: no aparece escrito en ningún componente, texto ni asset, sino que se lee siempre de `src/config/brand.ts`.
-7. **Tema:** **dark-first.** En v1 solo se implementa el tema oscuro. Todos los colores salen de tokens semánticos; un color literal en un componente solo se admite como excepción justificada y comentada en el código. Sumar un tema claro después consiste en agregar un bloque de valores sin tocar componentes.
+6. **Marca: Fymtec** (definida en v1.1, con logo propio). El nombre sigue sin escribirse en ningún componente, texto ni asset: se lee siempre de `src/config/brand.ts`.
+7. **Tema:** **dark-first, con opción de modo claro en v1.** El oscuro es el tema por defecto; un selector en el header permite pasar al claro y la elección se recuerda. Todos los colores salen de tokens semánticos; un color literal en un componente solo se admite como excepción justificada y comentada en el código.
 8. **Gestor de paquetes:** `pnpm`.
-9. **Identidad desacoplada (prioridad arquitectónica):** el nombre, el logo, la paleta y la tipografía probablemente cambien durante el desarrollo. Son provisorios, **no bloquean** ninguna tarea y ninguna sección depende rígidamente de ellos. Todo el sistema consume tokens y `brand.ts`.
-10. **Principio comercial:** la experiencia principal está diseñada para el potencial cliente. El orden narrativo es **problema → solución → evidencia → confianza → contacto**. Para quien quiera profundizar, en la segunda capa: **stack → decisiones técnicas → implementación → GitHub/código** cuando corresponda.
+9. **Identidad desacoplada (prioridad arquitectónica):** nombre, logo y paleta ya están definidos (§3.1); la tipografía sigue provisoria. Igual que antes, ninguna sección depende rígidamente de ellos: todo el sistema consume tokens, `brand.ts` y el componente de logo.
+10. **Principio comercial:** la experiencia principal está diseñada para el potencial cliente. La home sigue el orden **Inicio → Metodología → Clientes → Proyectos → Contacto** (problema y solución → confianza en el proceso → prueba social → evidencia → contacto). Para quien quiera profundizar, en la segunda capa: **stack → decisiones técnicas → implementación → GitHub/código** cuando corresponda.
 
 ---
 
@@ -28,7 +28,7 @@ Construir el sitio de una marca de software independiente que:
 - **Venda** soluciones digitales a negocios. La primera capa tiene que ser entendible para alguien no técnico.
 - **Demuestre** calidad técnica. El sitio es la demo, y la segunda capa (casos completos, stack, GitHub) respalda esa demostración.
 - **Convierta** en conversaciones con la menor fricción posible. El CTA principal es WhatsApp.
-- Se perciba **primero como estudio** y después revele a la persona detrás.
+- Se perciba **como estudio (Fymtec)**. La persona detrás aparece de forma discreta en Contacto, en el footer y en `/estudio`.
 
 ### Historias de usuario
 
@@ -46,8 +46,8 @@ Construir el sitio de una marca de software independiente que:
 
 ```
 /                        Home (landing de marca)
-/trabajos                Índice de todos los trabajos (destacados + secundarios)
-/trabajos/[slug]         Caso de estudio (completo o visual)
+/proyectos               Índice de todos los proyectos (destacados + secundarios)
+/proyectos/[slug]        Caso de estudio (completo, visual o breve)
 /estudio                 "Detrás del estudio": la persona, el enfoque, el stack y el GitHub (segunda capa)
 /contacto                Contacto (WhatsApp, email, formulario). También hay un ancla #contacto en la home
 /404                     Página no encontrada con estilo propio
@@ -57,20 +57,18 @@ Además: `sitemap.xml`, `robots.txt`, imágenes Open Graph por página y `manife
 
 ### 2.2 Home: orden de secciones y objetivo de cada una
 
-Sigue el principio comercial: **problema** (Hero) → **solución** (Qué resolvemos) → **evidencia** (Trabajos) → **confianza** (Proceso, Detrás del estudio) → **contacto** (CTA final, más el botón flotante siempre disponible). El detalle de cada sección está en [`docs/secciones.md`](docs/secciones.md).
+La navegación y la home tienen **5 secciones, en este orden: Inicio, Metodología, Clientes, Proyectos y Contacto.** Cada una es un ancla de la home (`/#inicio`, `/#metodologia`, `/#clientes`, `/#proyectos`, `/#contacto`). El detalle está en [`docs/secciones.md`](docs/secciones.md).
 
-| #   | Sección                        | Objetivo (qué tiene que lograr)                                            | Capa  | Notas de experiencia                                                                                                                                                                                                                                                                                                                                                                              |
-| --- | ------------------------------ | -------------------------------------------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | **Header**                     | Orientar y dejar el CTA siempre a mano                                     | 1     | Logo provisorio, navegación (Servicios, Trabajos, Proceso, Estudio) y botón "Hablemos". Se compacta al hacer scroll.                                                                                                                                                                                                                                                                              |
-| 2   | **Hero**                       | Decir **qué problema resuelvo y para quién** en una frase, sin tecnicismos | 1     | Titular orientado al negocio. CTA principal a WhatsApp y secundario "Ver trabajos". El momento visual más fuerte del sitio. El texto se renderiza en el servidor y es visible sin JS; la animación se suma encima.                                                                                                                                                                                |
-| 3   | **Qué resolvemos** (servicios) | Traducir los servicios a problemas de negocio                              | 1     | 3–4 bloques: presencia web que convierte, sistemas y aplicaciones a medida, SEO y optimización, automatización e integraciones ("próximamente" o con un tono más exploratorio). Cada bloque: problema → qué hago → trabajo relacionado.                                                                                                                                                           |
-| 4   | **Trabajos destacados**        | Probar con evidencia real                                                  | 1 → 2 | 4 casos (ver §2.4). Cada tarjeta muestra negocio, problema en una línea, tipo de solución e imagen. Clic → `/trabajos/[slug]`. Los casos no tienen todos el mismo peso: la composición puede destacar uno o dos.                                                                                                                                                                                  |
-| 5   | **Otros trabajos**             | Mostrar amplitud sin diluir los destacados (cierra el bloque de evidencia) | 1 → 2 | Franja compacta (nombre, tipo, año, link). En v1 incluye la auditoría SEO de La Retama como caso breve.                                                                                                                                                                                                                                                                                           |
-| 6   | **Cómo trabajo** (proceso)     | Bajar el riesgo percibido: "sé qué va a pasar"                             | 1     | 4 pasos con nombres propios, no copiados de la referencia. Propuesta: _Entender → Proponer → Construir → Acompañar_.                                                                                                                                                                                                                                                                              |
-| 7   | **Detrás del estudio**         | La revelación discreta: hay una persona concreta y es alcanzable           | 1 → 2 | **Sin foto.** Bloque breve de texto en primera persona. Enlace a `/estudio` para la capa técnica. Es el primer lugar donde aparece "Martín". Los protagonistas son los proyectos.                                                                                                                                                                                                                 |
-| 8   | **CTA final + contacto**       | Convertir                                                                  | 1     | "Contame tu idea". WhatsApp como opción principal y email como secundaria. El formulario aparece acá solo cuando se active el flag. Sin promesas de "diagnóstico gratis".                                                                                                                                                                                                                         |
-| 9   | **Footer**                     | Cerrar y dar confianza                                                     | 1     | Redes, GitHub, email, "Mendoza, Argentina · Trabajo remoto" y año.                                                                                                                                                                                                                                                                                                                                |
-| —   | **Botón flotante de WhatsApp** | Mantener el contacto a un clic en todo el sitio                            | 1     | Fijo en la esquina inferior derecha, en todas las páginas. Abre WhatsApp con un mensaje precargado. Integrado visualmente: ícono reconocible de WhatsApp sobre superficies y acentos del sistema, no el botón verde genérico. Aparece con una animación sutil tras un breve scroll o delay; no tapa contenido ni el CTA del hero en móvil, tiene `aria-label` y respeta `prefers-reduced-motion`. |
+| #   | Sección                        | Objetivo (qué tiene que lograr)                                          | Capa  | Notas de experiencia                                                                                                                                                                                                                          |
+| --- | ------------------------------ | ------------------------------------------------------------------------ | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| —   | **Header**                     | Orientar, dejar el CTA siempre a mano y permitir cambiar de tema         | 1     | Logo Fymtec (isotipo + wordmark), las 5 secciones, selector de tema y botón "Hablemos". Se compacta al hacer scroll.                                                                                                                          |
+| 1   | **Inicio**                     | Decir **qué problema resolvés y para quién** y **qué servicios ofrecés** | 1     | Hero con titular orientado al negocio, CTA principal a WhatsApp y secundario "Ver proyectos"; debajo, un bloque breve de servicios (qué resolvés). Es el momento visual más fuerte. El texto se renderiza en el servidor y es visible sin JS. |
+| 2   | **Metodología**                | Bajar el riesgo percibido: "sé qué va a pasar si escribo"                | 1     | 4 pasos con nombres propios. Propuesta: _Entender → Proponer → Construir → Acompañar_.                                                                                                                                                        |
+| 3   | **Clientes**                   | Prueba social: negocios reales confiaron en Fymtec                       | 1     | Franja breve: nombre del cliente, rubro y qué se hizo en una línea. Sin logos de clientes salvo permiso; sin testimonios inventados. Incluye los 5 clientes.                                                                                  |
+| 4   | **Proyectos**                  | Evidencia en profundidad                                                 | 1 → 2 | Tarjetas de los 4 casos destacados (+ La Retama como breve), con imagen, problema y tipo de solución. Clic → `/proyectos/[slug]`.                                                                                                             |
+| 5   | **Contacto**                   | Convertir                                                                | 1     | "Contame tu idea". WhatsApp como opción principal y email como secundaria. Una línea discreta presenta a la persona detrás de Fymtec, con link a `/estudio`. El formulario aparece solo si se activa el flag.                                 |
+| —   | **Footer**                     | Cerrar y dar confianza                                                   | 1     | Logo, claim, secciones, contacto, GitHub, "Mendoza, Argentina · Trabajo remoto" y año.                                                                                                                                                        |
+| —   | **Botón flotante de WhatsApp** | Mantener el contacto a un clic en todo el sitio                          | 1     | Fijo abajo a la derecha. Integrado a los tokens, no el verde genérico. Aparece al pasar el hero (o de entrada si la página no tiene hero) y se oculta sobre Contacto.                                                                         |
 
 **Regla de las dos capas:** cualquier sección de la capa 1 se tiene que poder entender sin saber qué es React. Los términos técnicos (stack, frameworks, arquitectura) solo aparecen en las páginas de caso, en `/estudio` y en etiquetas secundarias pequeñas.
 
@@ -90,6 +88,8 @@ Sigue el principio comercial: **problema** (Hero) → **solución** (Qué resolv
 | ------------ | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | **Completo** | Casos con decisiones técnicas o de negocio interesantes    | Resumen → Contexto/problema → Solución → Proceso → Qué hice yo → Decisiones (2–4, con trade-off) → Tecnologías → Resultado → CTA |
 | **Visual**   | Casos donde el valor es principalmente estético o de marca | Resumen → Galería o recorrido visual grande → Qué hice yo (breve) → Tecnologías → CTA                                            |
+
+**Relación entre Clientes y Proyectos:** _Clientes_ es prueba social breve (quién confió, de qué rubro, qué se hizo); _Proyectos_ es la evidencia en profundidad (los casos). Un mismo trabajo puede aparecer en ambas, pero con un nivel de detalle distinto y sin repetir el mismo contenido.
 
 **Asignación (confirmada en v0.2):**
 
@@ -134,27 +134,47 @@ type CaseStudy = {
 
 ## 3. Sistema visual y motion
 
-### 3.1 Design tokens
+### 3.1 Identidad, paleta y design tokens
 
 Toda la identidad pasa por tokens. **Ningún componente usa colores, fuentes ni radios literales.**
 
+**Logo.** Isotipo (dos montañas: pizarra y azul, con un sendero en zigzag entre ambas) más el wordmark **FYMTEC** ("FYM" en pizarra, "TEC" en azul). Se implementa como componente SVG (`src/components/brand/Logo.tsx`) redibujado a partir de las imágenes originales, con los colores tomados de los tokens para que funcione en los dos temas. En fondo oscuro, la montaña pizarra pasa a un tono claro, como en las piezas de marca sobre fondo oscuro.
+
+**Paleta** (colores del logo medidos sobre los originales: azul `#1F6998`, pizarra `#202D34`):
+
+| Rol                           | Oscuro (por defecto)                 | Claro                                |
+| ----------------------------- | ------------------------------------ | ------------------------------------ |
+| Fondo                         | `#0A1218` azul noche                 | `#F6F8FA`                            |
+| Superficie                    | `#111C24`                            | `#FFFFFF`                            |
+| Superficie elevada            | `#18252F`                            | `#EDF1F5`                            |
+| Texto                         | `#F1F5F8`                            | `#1B262D`                            |
+| Texto secundario              | `#9BAAB6`                            | `#52616C`                            |
+| Acento de texto (`highlight`) | `#5CB3E8` celeste                    | `#1F6998` azul Fymtec                |
+| CTA (fondo / texto)           | `#1F6998` / blanco · hover `#2678AD` | `#1F6998` / blanco · hover `#185A84` |
+| Foco                          | `#5CB3E8`                            | `#1F6998`                            |
+
+**Contrastes verificados (WCAG):** texto 17.2:1 (oscuro) y 14.5:1 (claro); texto secundario 7.9:1 y 6.0:1; acento 8.2:1 y 5.6:1; blanco sobre el CTA 5.95:1 (hover 4.8:1 y 7.4:1). **Regla:** el azul Fymtec **no se usa como color de texto sobre fondo oscuro** (3.2:1, no alcanza AA); ahí se usa el celeste. El azul queda para fondos de CTA, formas grandes y el isotipo.
+
+**Tokens:**
+
 - **Dónde viven:** `src/styles/tokens.css` como variables CSS, expuestas a Tailwind v4 con `@theme`.
 - **Dos niveles:**
-  - **Primitivos de marca** (`--brand-*`): la paleta cruda y las familias tipográficas provisorias. Son lo único que cambia cuando se define la identidad.
-  - **Semánticos**: lo que consumen los componentes. Se definen en función de los primitivos.
-- **Categorías:**
-  - Color **semántico**: `--bg`, `--surface`, `--surface-raised`, `--fg`, `--fg-muted`, `--highlight` (color de marca), `--highlight-strong`, `--highlight-fg`, `--border`, `--border-strong`, `--ring`, `--danger`. Tailwind los expone como `bg-surface`, `text-fg-muted`, `bg-highlight`, etc. Los nombres de shadcn (`--primary`, `--muted`, `--accent`…) son alias de estos; ojo: en shadcn `accent` es el fondo sutil de hover, por eso el color de marca se llama `highlight` (y `primary` en shadcn). En v1 solo existen los valores del **tema oscuro** (dark-first). Un tema claro futuro es otro bloque de valores bajo `[data-theme="light"]`.
-  - Tipografía: `--font-display` y `--font-body`, y una escala fluida con `clamp()`.
-  - Espaciado, radios, sombras y z-index.
-  - **Motion:** `--motion-duration-fast|base|slow` y `--motion-ease-out|in-out|emphasized` (en Tailwind: `ease-out`, `ease-in-out`, `ease-emphasized`). En TypeScript se espejan en `src/lib/motion.ts` para usarlos en Motion.
-- **Marca:** nombre, logo (componente SVG), claim, contactos, ubicación, redes y flags (por ejemplo `formEnabled`) en `src/config/brand.ts`. Cambiar la marca tiene que implicar tocar `tokens.css` (solo los primitivos), `brand.ts` y los assets del logo, y nada más.
-- **Logo provisorio:** un wordmark tipográfico con el nombre, sin isotipo inventado.
+  - **Primitivos de marca** (`--brand-*`): la paleta de Fymtec y las familias tipográficas.
+  - **Semánticos**, por tema: `--bg`, `--surface`, `--surface-raised`, `--fg`, `--fg-muted`, `--highlight`, `--cta`, `--cta-hover`, `--cta-fg`, `--border`, `--border-strong`, `--ring`, `--danger`. Tailwind los expone como `bg-surface`, `text-fg-muted`, `text-highlight`, `bg-cta`, etc. Los nombres de shadcn (`--primary`, `--muted`, `--accent`…) son alias de estos; ojo: en shadcn `accent` es el fondo sutil de hover, no el color de marca.
+- **Temas:** `data-theme="dark"` (por defecto) o `data-theme="light"` en `<html>`. Los valores semánticos de cada tema son un bloque en `tokens.css`; los componentes no cambian.
+- **Selector de tema:** botón en el header (y en el menú móvil) con nombre accesible que indica a qué tema cambia. La elección se guarda en `localStorage`; un script mínimo en el `<head>` aplica el tema guardado **antes del primer pintado**, para que no haya parpadeo. Sin elección guardada, el sitio arranca en oscuro.
+- Tipografía: `--font-display` y `--font-sans`, con una escala fluida con `clamp()`. **Provisorias** (Space Grotesk y Geist) hasta definir la tipografía de marca.
+- Espaciado, radios, sombras y z-index.
+- **Motion:** `--motion-duration-fast|base|slow` y `--motion-ease-out|in-out|emphasized` (en Tailwind: `ease-out`, `ease-in-out`, `ease-emphasized`). En TypeScript se espejan en `src/lib/motion.ts`.
+- **Marca:** nombre, claim, contactos, ubicación, redes y flags (por ejemplo `formEnabled`) en `src/config/brand.ts`.
+- **Imágenes generadas (OG):** Satori no lee variables CSS, así que `src/config/og-theme.ts` espeja en hex los primitivos del tema oscuro.
 
 **Valores iniciales de `brand.ts`:**
 
 | Campo                 | Valor                                                                     |
 | --------------------- | ------------------------------------------------------------------------- |
-| `name`                | `Mertech` (placeholder)                                                   |
+| `name`                | `Fymtec`                                                                  |
+| `tagline` / `claim`   | `Software a medida` / `Software que resuelve`                             |
 | `contact.whatsapp`    | `+54 261 416 0956` → formato `wa.me`: `5492614160956` _(ver §12, nota 1)_ |
 | `contact.email`       | `martinmerlo360@gmail.com`                                                |
 | `contact.formEnabled` | `false`                                                                   |
@@ -199,7 +219,7 @@ El sitio tiene **muchas animaciones y microinteracciones** y tiene que destacar 
 - **JSON-LD**: `ProfessionalService` u `Organization` para el estudio, `Person` en `/estudio` y `CreativeWork` en cada caso. Se valida con el Rich Results Test.
 - HTML semántico: un solo `h1` por página, jerarquía de títulos correcta, `alt` descriptivos y `lang="es"`.
 - Imágenes OG generadas por página (`opengraph-image.tsx`).
-- URLs en español y estables (`/trabajos/liga-mendocina-de-ajedrez`).
+- URLs en español y estables (`/proyectos/liga-mendocina-de-ajedrez`).
 - Preparado para `hreflang` cuando exista `/en`.
 
 ---
@@ -244,20 +264,21 @@ pnpm lighthouse       # Lighthouse CI contra el build local
 src/
   app/                    → Rutas (App Router)
     (site)/page.tsx       → Home
-    trabajos/             → Índice y [slug]
+    proyectos/            → Índice y [slug]
     estudio/              → Segunda capa
     contacto/
     api/contact/route.ts  → Envío del formulario
     sitemap.ts, robots.ts, opengraph-image.tsx
   components/
     ui/                   → Primitivas (shadcn adaptadas)
-    sections/             → Secciones de la home (Hero, Services, FeaturedWork…)
+    sections/             → Secciones de la home (Hero, Services, Methodology, Clients, Projects, FinalCta)
     case-study/           → Bloques de los casos
     motion/               → Wrappers de animación reutilizables (Reveal, Stagger…)
-  config/brand.ts         → Nombre, logo, contactos y redes (única fuente)
+  config/brand.ts         → Nombre, claim, contactos y redes (única fuente)
+  components/brand/       → Logo (isotipo + wordmark) y Wordmark
   content/es/             → Contenido en español
-    site.ts               → Textos globales (hero, servicios, proceso, CTA)
-    trabajos/*.mdx        → Casos de estudio
+    site.ts               → Textos globales (navegación, hero, servicios, metodología, CTA)
+    proyectos/*.mdx       → Casos de estudio
   lib/                    → Utilidades (motion.ts, seo.ts, content.ts)
   styles/tokens.css       → Design tokens
 public/                   → Assets estáticos (imágenes optimizadas)
@@ -325,7 +346,8 @@ No se busca un porcentaje de cobertura: se prueba lo que puede romperse (conteni
 - [ ] El CTA de WhatsApp abre la conversación con un mensaje precargado, en 1 clic desde cualquier página, gracias al botón flotante.
 - [ ] El botón flotante nunca tapa contenido interactivo ni el CTA del hero en un móvil de 375 px.
 - [ ] Ningún texto de la capa 1 requiere conocimiento técnico. Se revisa con una persona no técnica.
-- [ ] El nombre "Martín" no aparece antes de la sección "Detrás del estudio".
+- [ ] La persona detrás de Fymtec solo aparece en Contacto, el footer y `/estudio`, nunca en Inicio, Metodología, Clientes ni Proyectos.
+- [ ] La sección Clientes no muestra logos ni testimonios sin permiso del cliente.
 - [ ] Hay 4 casos destacados y La Retama como secundario publicados, solo con material mostrable legítimamente y sin métricas no verificables.
 - [ ] Con `formEnabled = false` no se renderiza ningún formulario ni endpoint accesible.
 
@@ -340,13 +362,15 @@ No se busca un porcentaje de cobertura: se prueba lo que puede romperse (conteni
 
 - [ ] Con `prefers-reduced-motion: reduce` no hay desplazamientos, parallax ni loops.
 - [ ] El sitio se puede usar completo con teclado, con foco visible.
-- [ ] Contraste AA en todos los textos del tema oscuro.
+- [ ] Contraste AA en todos los textos, en los dos temas.
+- [ ] Cambiar de tema no produce parpadeo al cargar y la elección se recuerda entre visitas.
+- [ ] El selector de tema se puede operar con teclado y anuncia a qué tema cambia.
 - [ ] Con JS desactivado, el contenido principal es legible.
 
 **Mantenibilidad**
 
-- [ ] Cambiar la marca (nombre, logo, paleta y tipografía) toca solo los primitivos de `tokens.css`, `brand.ts` y los assets del logo.
-- [ ] Sumar un tema claro consiste en agregar un bloque de valores semánticos, sin tocar componentes.
+- [ ] Cambiar la marca (nombre, logo, paleta y tipografía) toca solo los primitivos de `tokens.css`, `brand.ts`, `fonts.ts` y el componente de logo.
+- [ ] Los dos temas salen de bloques de valores semánticos; ningún componente tiene lógica por tema.
 - [ ] Sumar un caso nuevo consiste en agregar un archivo MDX y sus imágenes, sin tocar componentes.
 - [ ] Sumar inglés no requiere modificar los componentes de las secciones.
 
@@ -389,7 +413,7 @@ No se busca un porcentaje de cobertura: se prueba lo que puede romperse (conteni
 
 | #   | Tema              | Decisión                                                                                                          |
 | --- | ----------------- | ----------------------------------------------------------------------------------------------------------------- |
-| 1   | Nombre provisorio | `Mertech`, centralizado en `brand.ts`                                                                             |
+| 1   | Nombre provisorio | ~~`Mertech`~~ → reemplazado por **Fymtec** (v1.1)                                                                 |
 | 2   | Contacto          | WhatsApp (con botón flotante) + email en v1. Formulario construido pero desactivado; cuando se active, con Resend |
 | 3   | Casos             | 4 destacados (Roma Barber, Freight Forwarder, Liga Mendocina, Salomón Barrios) y La Retama como secundario        |
 | 4   | Material          | Solo material mostrable legítimamente, con capturas propias o nuevas de los sitios en vivo                        |
@@ -411,6 +435,21 @@ No se busca un porcentaje de cobertura: se prueba lo que puede romperse (conteni
 | 10  | Piezas firma        | Se definen en la etapa de diseño                                                                             |
 | 11  | Dominio             | `*.vercel.app` en v1                                                                                         |
 
+### Resueltas en v1.1 (2026-10-07)
+
+| #   | Tema               | Decisión                                                                                                                 |
+| --- | ------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| 12  | Marca              | **Fymtec**, con logo propio (isotipo de montañas + wordmark). Tagline "Software a medida", claim "Software que resuelve" |
+| 13  | Paleta             | Derivada del logo; ver §3.1                                                                                              |
+| 14  | Tema               | Dark-first con selector para pasar a modo claro (en v1)                                                                  |
+| 15  | Secciones          | Inicio, Metodología, Clientes, Proyectos y Contacto, en ese orden                                                        |
+| 16  | Clientes/Proyectos | Clientes = prueba social breve; Proyectos = casos de estudio en `/proyectos/[slug]`                                      |
+| 17  | Servicios          | Bloque breve dentro de Inicio                                                                                            |
+| 18  | Detrás del estudio | Se elimina de la home; la persona aparece en Contacto, footer y `/estudio`, que se mantiene                              |
+| 19  | Logo               | Se redibuja como SVG a partir de las imágenes; Martín valida que quede idéntico                                          |
+
 ### Abiertas
 
 1. Qué 2–3 piezas firma usar (etapa de diseño).
+2. **Tipografía de marca:** las piezas de Instagram usan una sans pesada y geométrica. ¿Hay una fuente definida? Si no, se propone una en la etapa de diseño.
+3. **Fotografía:** las piezas de marca usan fotos de montaña. ¿Se usan en el sitio? Requieren fotos propias o con licencia.

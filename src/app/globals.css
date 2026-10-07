@@ -19,8 +19,9 @@
   --color-fg: var(--fg);
   --color-fg-muted: var(--fg-muted);
   --color-highlight: var(--highlight);
-  --color-highlight-strong: var(--highlight-strong);
-  --color-highlight-fg: var(--highlight-fg);
+  --color-cta: var(--cta);
+  --color-cta-hover: var(--cta-hover);
+  --color-cta-fg: var(--cta-fg);
   --color-border-strong: var(--border-strong);
   --color-danger: var(--danger);
 

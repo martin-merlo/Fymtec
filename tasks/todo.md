@@ -106,7 +106,42 @@
 
 ---
 
-## Fase 3: Home
+## Fase 2.5: Identidad Fymtec (v1.1)
+
+> Agregada el 2026-10-07 al definirse la marca. Los IDs T36–T38 se suman al final para no renumerar el resto.
+
+- [x] **T36. Marca y paleta en el sistema** · S · ✅ 2026-10-07
+  - **Qué:** `brand.ts` con Fymtec, tagline y claim; primitivos de la paleta de Fymtec y semánticos para tema oscuro y claro en `tokens.css`; tokens `cta` separados del acento de texto; navegación con las 5 secciones.
+  - **Aceptación:** contraste AA verificado en ambos temas (SPEC §3.1); tests, lint y e2e en verde.
+
+- [ ] **T37. Logo SVG (isotipo + wordmark)** · M · Depende de: T36 · 🧑 _Validación tuya_
+  - **Qué:** redibujar el isotipo (dos montañas y el sendero) y el wordmark FYMTEC como SVG a partir de las imágenes de `docs/brand/`. Componente `Logo` con variantes `full` e `isotype`, colores desde tokens (la montaña pizarra se aclara en tema oscuro). Reemplaza al `Wordmark` provisorio en header y footer. Favicon e ícono de app generados desde el isotipo.
+  - **Aceptación:**
+    - Superpuesto a la imagen original, el isotipo coincide en formas y proporciones (validación tuya).
+    - Se ve correcto en los dos temas.
+    - Tiene nombre accesible (`brand.name`) y el SVG no se lee dos veces.
+  - **Verificar:** comparación visual lado a lado · `pnpm test:e2e`.
+  - **Archivos:** `src/components/brand/Logo.tsx`, `src/app/icon.svg`, `src/components/layout/Header.tsx`, `src/components/layout/Footer.tsx`.
+
+- [ ] **T38. Selector de tema** · M · Depende de: T36
+  - **Qué:** botón de tema en el header y en el menú móvil; preferencia en `localStorage`; script inline en `<head>` que aplica el tema antes del primer pintado; transición corta de colores (instantánea con reduced-motion). Sin dependencias.
+  - **Aceptación:**
+    - Por defecto oscuro; la elección se recuerda al recargar.
+    - Sin parpadeo del tema equivocado al cargar.
+    - Operable con teclado; el nombre accesible indica a qué tema cambia.
+    - axe sin violaciones serias en ambos temas.
+  - **Verificar:** `pnpm test:e2e` (persistencia, sin parpadeo, axe en claro y oscuro).
+  - **Archivos:** `src/components/theme/ThemeToggle.tsx`, `src/components/theme/ThemeScript.tsx`, `src/app/layout.tsx`, `e2e/theme.spec.ts`.
+
+### ✅ Checkpoint fase 2.5
+
+- [ ] El logo es fiel al original y se ve bien en los dos temas.
+- [ ] El selector de tema funciona sin parpadeo.
+- [ ] **Revisión tuya.**
+
+---
+
+## Fase 3: Home (Inicio → Metodología → Clientes → Proyectos → Contacto)
 
 - [ ] **T10. Primitivas de motion** · M · Depende de: T2
   - **Qué:** crear `Reveal`, `Stagger` y `TextReveal` (con Motion, respetando reduced-motion) y utilidades CSS para scroll-driven animations con fallback. El contenido siempre viene renderizado en el servidor y es visible sin JS.
@@ -117,8 +152,8 @@
   - **Verificar:** `pnpm test` (tests de componentes con reduced-motion) · manual con JS desactivado.
   - **Archivos:** `src/components/motion/Reveal.tsx`, `src/components/motion/Stagger.tsx`, `src/components/motion/TextReveal.tsx`, `src/styles/motion.css`, `tests/motion.test.tsx`.
 
-- [ ] **T11. Hero** · M · Depende de: T10, T5
-  - **Qué:** hero con texto superior, titular, bajada y CTAs (principal a WhatsApp y secundario "Ver trabajos"), sobre un fondo provisorio estático. La pieza firma se suma en la fase 6.
+- [ ] **T11. Inicio: hero** · M · Depende de: T10, T5
+  - **Qué:** hero (`#inicio`) con texto superior, titular, bajada y CTAs (principal a WhatsApp y secundario "Ver proyectos"), sobre un fondo provisorio estático. La pieza firma se suma en la fase 6.
   - **Aceptación:**
     - En 375 px, el titular, la bajada y el CTA principal están en la primera pantalla.
     - El titular es el elemento LCP y es visible en el primer render.
@@ -126,55 +161,64 @@
   - **Verificar:** `pnpm test:e2e` · Lighthouse en la preview: LCP < 2.5 s.
   - **Archivos:** `src/components/sections/Hero.tsx`, `src/content/es/site.ts`, `src/app/page.tsx`.
 
-- [ ] **T12. Qué resolvemos** · M · Depende de: T10
-  - **Qué:** 4 bloques problema → solución → caso relacionado, con automatización como mención menor. Entrada escalonada y feedback en hover.
+- [ ] **T12. Inicio: servicios** · M · Depende de: T10
+  - **Qué:** bloque de servicios dentro de Inicio: 4 bloques problema → solución → proyecto relacionado, más automatización como mención menor. Entrada escalonada y feedback en hover.
   - **Aceptación:**
     - Los textos salen de `content/es/services.ts`.
-    - Los links a casos solo aparecen si el caso está `published`.
+    - Los links a proyectos solo aparecen si el proyecto está `published`.
     - Cada bloque se entiende sin conocimiento técnico.
   - **Verificar:** `pnpm test` · revisión de textos con vos.
   - **Archivos:** `src/components/sections/Services.tsx`, `src/content/es/services.ts`, `src/app/page.tsx`.
 
-- [ ] **T13. Pipeline de contenido de casos** · M · Depende de: T1
-  - **Qué:** crear el esquema Zod de `CaseStudy` (con `status: draft | published`), el loader de MDX (lista, por slug, destacados y secundarios) y fixtures de test. En producción solo se exponen los `published`.
-  - **Aceptación:**
-    - Un frontmatter inválido rompe `pnpm build` con un mensaje claro.
-    - Los casos `draft` no aparecen en producción.
-    - El loader tiene tests.
-  - **Verificar:** `pnpm test` · `pnpm build` con un fixture inválido falla.
-  - **Archivos:** `src/lib/content.ts`, `src/lib/case-schema.ts`, `tests/content.test.ts`, `tests/fixtures/*.mdx`.
-
-- [ ] **T14. Trabajos destacados y otros trabajos en la home** · M · Depende de: T13, T10
-  - **Qué:** tarjetas de casos (imagen, negocio, problema, tipo de solución), en el orden y con el peso definidos en `secciones.md` §3.3, más la franja de "Otros trabajos". Revelado con máscara y feedback en hover. Las imágenes van con `next/image`.
-  - **Aceptación:**
-    - Con 0 casos publicados, la sección no se renderiza.
-    - En móvil hay una tarjeta por fila y la información es visible sin hover.
-    - Las imágenes tienen `sizes` responsivos y `alt` descriptivo.
-  - **Verificar:** `pnpm test:e2e` con fixtures · Lighthouse CLS < 0.1.
-  - **Archivos:** `src/components/sections/FeaturedWork.tsx`, `src/components/case-study/CaseCard.tsx`, `src/components/sections/OtherWork.tsx`, `src/app/page.tsx`.
-
-- [ ] **T15. Cómo trabajo** · S · Depende de: T10
-  - **Qué:** los 4 pasos con un camino que se dibuja con el scroll, hecho con scroll-driven animations de CSS y fallback estático.
+- [ ] **T15. Metodología** · S · Depende de: T10
+  - **Qué:** sección `#metodologia` con los 4 pasos y el sendero del isotipo como línea que se dibuja con el scroll (scroll-driven animations de CSS, con fallback estático).
   - **Aceptación:**
     - Funciona sin JS.
     - Con reduced-motion los pasos son estáticos.
     - En navegadores sin soporte se ve la versión estática completa.
   - **Verificar:** manual en Chrome y en Safari o Firefox · `pnpm test:e2e` (reduced-motion).
-  - **Archivos:** `src/components/sections/Process.tsx`, `src/content/es/site.ts`.
+  - **Archivos:** `src/components/sections/Methodology.tsx`, `src/content/es/site.ts`.
 
-- [ ] **T16. Detrás del estudio** · S · Depende de: T10
-  - **Qué:** bloque breve de texto en primera persona, sin foto, con link a `/estudio`. Es el primer lugar donde aparece "Martín".
+- [ ] **T13. Pipeline de contenido de proyectos** · M · Depende de: T1
+  - **Qué:** crear el esquema Zod de `CaseStudy` (con `status: draft | published`, y `client`/`industry` para la sección Clientes), el loader de MDX (lista, por slug, destacados y breves) y fixtures de test. En producción solo se exponen los `published`.
   - **Aceptación:**
-    - Un test e2e verifica que "Martín" no aparece en el DOM antes de esta sección.
-    - El link a `/estudio` funciona (puede mostrar un placeholder hasta T26).
+    - Un frontmatter inválido rompe `pnpm build` con un mensaje claro.
+    - Los proyectos `draft` no aparecen en producción.
+    - El loader tiene tests.
+  - **Verificar:** `pnpm test` · `pnpm build` con un fixture inválido falla.
+  - **Archivos:** `src/lib/content.ts`, `src/lib/case-schema.ts`, `tests/content.test.ts`, `tests/fixtures/*.mdx`.
+
+- [ ] **T16. Clientes** · S · Depende de: T10 · 🧑 _Necesita el rubro de La Retama_
+  - **Qué:** sección `#clientes` como prueba social: nombre, rubro y qué se hizo en una línea por cliente. Si el cliente tiene proyecto publicado, ofrece "Ver proyecto". Sin logos ni testimonios.
+  - **Aceptación:**
+    - Datos desde `content/es/clients.ts` (o derivados de los proyectos, sin duplicar).
+    - Se entiende en menos de 5 segundos que hay clientes reales de rubros distintos.
+    - Accesible como lista (`<ul>`), no como imágenes.
+  - **Verificar:** `pnpm test:e2e` · revisión tuya de rubros y descripciones.
+  - **Archivos:** `src/components/sections/Clients.tsx`, `src/content/es/clients.ts`, `src/app/page.tsx`.
+
+- [ ] **T14. Proyectos en la home** · M · Depende de: T13, T10
+  - **Qué:** sección `#proyectos` con tarjetas de los 4 destacados (imagen, negocio, problema, tipo de solución) en el orden y peso de `secciones.md` §3.4, más La Retama como fila breve. Revelado con máscara y feedback en hover. Imágenes con `next/image`.
+  - **Aceptación:**
+    - Con 0 proyectos publicados, la sección no se renderiza.
+    - En móvil hay una tarjeta por fila y la información es visible sin hover.
+    - Las imágenes tienen `sizes` responsivos y `alt` descriptivo.
+  - **Verificar:** `pnpm test:e2e` con fixtures · Lighthouse CLS < 0.1.
+  - **Archivos:** `src/components/sections/Projects.tsx`, `src/components/case-study/ProjectCard.tsx`, `src/app/page.tsx`.
+
+- [ ] **T39. Contacto: línea de la persona detrás** · S · Depende de: T8
+  - **Qué:** sumar a la sección Contacto la línea discreta "Detrás de Fymtec estoy yo, Martín…" con link a `/estudio` (reemplaza a la sección "Detrás del estudio", eliminada en v1.1).
+  - **Aceptación:** un test e2e verifica que "Martín" no aparece en Inicio, Metodología, Clientes ni Proyectos.
   - **Verificar:** `pnpm test:e2e`.
-  - **Archivos:** `src/components/sections/BehindStudio.tsx`, `src/content/es/site.ts`, `e2e/home.spec.ts`.
+  - **Archivos:** `src/components/sections/FinalCta.tsx`, `src/content/es/site.ts`, `e2e/home.spec.ts`.
+
+- [x] ~~**T16 (anterior). Detrás del estudio**~~ · Eliminada en v1.1, reemplazada por T39.
 
 ### ✅ Checkpoint fase 3
 
-- [ ] La home completa sigue el orden problema → solución → evidencia → confianza → contacto.
-- [ ] Lighthouse mobile en la preview: Performance ≥ 90 y el resto ≥ 95.
-- [ ] Una persona no técnica entiende qué se ofrece con solo ver el hero.
+- [ ] La home sigue el orden Inicio → Metodología → Clientes → Proyectos → Contacto y la navegación marca cada sección.
+- [ ] Lighthouse mobile en la preview: Performance ≥ 90 y el resto ≥ 95, en los dos temas.
+- [ ] Una persona no técnica entiende qué se ofrece con solo ver Inicio.
 - [ ] **Revisión tuya** (textos y ritmo de la home).
 
 ---
@@ -182,14 +226,14 @@
 ## Fase 4: Casos de estudio
 
 - [ ] **T17. Plantilla de caso** · M · Depende de: T13
-  - **Qué:** crear `/trabajos/[slug]` con bloques MDX opcionales (Portada, Contexto, Solución, Proceso, QuéHiceYo, Decisiones, Tecnologías, Resultado, Galería), navegación al siguiente caso y CTA. Incluye metadata, OG por caso y JSON-LD `CreativeWork`.
+  - **Qué:** crear `/proyectos/[slug]` con bloques MDX opcionales (Portada, Contexto, Solución, Proceso, QuéHiceYo, Decisiones, Tecnologías, Resultado, Galería), navegación al siguiente caso y CTA. Incluye metadata, OG por caso y JSON-LD `CreativeWork`.
   - **Aceptación:**
     - Un caso puede usar cualquier subconjunto de bloques y en cualquier orden.
     - Las rutas se generan estáticamente.
     - JSON-LD válido.
     - Un slug inexistente devuelve 404.
   - **Verificar:** `pnpm test:e2e` con fixtures · `pnpm build` (generación estática).
-  - **Archivos:** `src/app/trabajos/[slug]/page.tsx`, `src/components/case-study/blocks.tsx`, `src/components/case-study/CaseHero.tsx`, `src/app/trabajos/[slug]/opengraph-image.tsx`.
+  - **Archivos:** `src/app/proyectos/[slug]/page.tsx`, `src/components/case-study/blocks.tsx`, `src/components/case-study/CaseHero.tsx`, `src/app/proyectos/[slug]/opengraph-image.tsx`.
 
 - [ ] **T18. Comparador antes/después** · S · Depende de: T17
   - **Qué:** componente para comparar dos imágenes, accesible (control con `input type="range"` nativo), para el caso de Freight Forwarder.
@@ -200,11 +244,11 @@
   - **Verificar:** `pnpm test` · manual en el celular.
   - **Archivos:** `src/components/case-study/BeforeAfter.tsx`, `tests/before-after.test.tsx`.
 
-- [ ] **T19. Índice `/trabajos`** · S · Depende de: T14, T17
-  - **Qué:** página con los destacados (mismas tarjetas) y la lista de otros trabajos.
+- [ ] **T19. Índice `/proyectos`** · S · Depende de: T14, T17
+  - **Qué:** página con los destacados (mismas tarjetas) y la lista de proyectos breves.
   - **Aceptación:** lista todos los casos publicados y tiene metadata propia.
   - **Verificar:** `pnpm test:e2e`.
-  - **Archivos:** `src/app/trabajos/page.tsx`.
+  - **Archivos:** `src/app/proyectos/page.tsx`.
 
 - [ ] **T20. Caso: International Freight Forwarder** · M · Depende de: T17, T18 · 🧑 _Necesita tu material_
 - [ ] **T21. Caso: Liga Mendocina de Ajedrez** · M · Depende de: T17 · 🧑 _Necesita tu material_
@@ -217,7 +261,7 @@
     - Pasa a `published` solo con tu aprobación.
     - Las imágenes tienen `alt` descriptivo.
   - **Verificar:** revisión tuya del texto · `pnpm build` · Lighthouse de la página del caso.
-  - **Archivos:** `src/content/es/trabajos/<slug>.mdx`, `public/trabajos/<slug>/*`.
+  - **Archivos:** `src/content/es/proyectos/<slug>.mdx`, `public/proyectos/<slug>/*`.
 
 - [ ] **T25. Transición home → caso** · S · Depende de: T14, T17
   - **Qué:** la imagen de la tarjeta se transforma en la portada del caso, con la View Transitions API. Sin soporte o con reduced-motion, la navegación es normal.
@@ -226,7 +270,7 @@
     - En otros navegadores no rompe nada.
     - Sin dependencias nuevas, salvo consulta previa.
   - **Verificar:** manual en Chrome y en Safari o Firefox · `pnpm test:e2e`.
-  - **Archivos:** `src/components/case-study/CaseCard.tsx`, `src/components/case-study/CaseHero.tsx`, `src/app/layout.tsx`.
+  - **Archivos:** `src/components/case-study/ProjectCard.tsx`, `src/components/case-study/CaseHero.tsx`, `src/app/layout.tsx`.
 
 ### ✅ Checkpoint fase 4
 
@@ -277,8 +321,8 @@
   - **Archivos:** `docs/components-origin.md`, `docs/secciones.md`.
 
 - [ ] **T30. Pieza firma: hero** · M · Depende de: T29, T11
-- [ ] **T31. Pieza firma: CTA final** · M · Depende de: T29, T8
-- [ ] **T32. Pieza firma opcional (trabajos o transición)** · M · Depende de: T29
+- [ ] **T31. Pieza firma: Contacto** · M · Depende de: T29, T8
+- [ ] **T32. Pieza firma opcional (Metodología, Proyectos o transición)** · M · Depende de: T29
   - **Qué (T30–T32):** implementar cada pieza reescrita con tokens, con carga diferida, pausada fuera del viewport y con fallback estático para reduced-motion o dispositivos modestos.
   - **Aceptación:**
     - No empeora el LCP ni el CLS respecto del checkpoint de la fase 3.

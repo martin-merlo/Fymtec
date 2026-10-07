@@ -1,13 +1,14 @@
 /**
  * Identidad de la marca: única fuente de verdad.
  *
- * El nombre es PROVISORIO ("nombre de trabajo"). Ningún componente, texto ni
- * asset debe escribirlo literal: siempre se lee desde acá. Lo mismo vale para
- * contacto, ubicación y redes.
+ * Ningún componente, texto ni asset escribe el nombre literal: siempre se lee
+ * desde acá. Lo mismo vale para contacto, ubicación y redes.
  */
 export const brand = {
-  name: "Mertech",
-  tagline: "Soluciones digitales para negocios",
+  name: "Fymtec",
+  tagline: "Software a medida",
+  /** Frase de marca (piezas de Instagram y flyer). */
+  claim: "Software que resuelve",
   location: "Mendoza, Argentina · Trabajo remoto",
   locale: "es-AR",
 
