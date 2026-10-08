@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import "./globals.css";
 import { FloatingWhatsApp } from "@/components/contact/FloatingWhatsApp";
@@ -48,6 +50,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           href={whatsappUrl(contact.whatsappMessage(brand.name))}
           label={contact.whatsappAria}
         />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

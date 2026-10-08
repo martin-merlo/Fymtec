@@ -89,19 +89,20 @@
   - **Verificar:** `pnpm test:e2e` (el recorrido de contacto funciona) · `pnpm build`.
   - **Archivos:** `src/components/sections/FinalCta.tsx`, `src/components/layout/Footer.tsx`, `src/app/contacto/page.tsx`, `src/content/es/site.ts`.
 
-- [ ] **T9. Deploy en Vercel y analítica** · S · Depende de: T8 · ⚠️ _Consultar antes (conectar Vercel)_
+- [x] **T9. Deploy en Vercel y analítica** · S · ✅ 2026-10-07 · `https://portfolio-beige-omega-92.vercel.app`
   - **Qué:** conectar el repo a Vercel, sumar Vercel Web Analytics y Speed Insights y configurar Lighthouse CI con los umbrales de §10 de la spec.
   - **Aceptación:**
     - El sitio está en `*.vercel.app`.
     - Analytics y Speed Insights registran visitas.
     - `pnpm lighthouse` corre contra el build local con los umbrales configurados.
   - **Verificar:** abrir la URL de producción · panel de Vercel · `pnpm lighthouse`.
-  - **Archivos:** `src/app/layout.tsx`, `lighthouserc.json`, `package.json`.
+  - **Archivos:** `src/app/layout.tsx`, `lighthouserc.json`, `scripts/lighthouse.mjs`, `package.json`.
+  - **Resultado (producción, móvil, 3 corridas):** Performance 98–99, Accesibilidad 100, Buenas prácticas 100, SEO 100; LCP 2.0 s, CLS 0, TBT 60–130 ms. Lighthouse CI mide producción: en localhost la simulación infla el LCP (2.8 s simulado vs 0.4 s observado).
 
 ### ✅ Checkpoint fase 2
 
 - [ ] En la URL de Vercel, desde un celular, se puede abrir WhatsApp y copiar el email desde cualquier página.
-- [ ] Lighthouse mobile ≥ 95 en las 4 categorías (todavía no hay contenido pesado).
+- [x] Lighthouse mobile ≥ 95 en las 4 categorías (98–100 en producción).
 - [ ] **Revisión tuya.**
 
 ---

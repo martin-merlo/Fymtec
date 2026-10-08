@@ -253,7 +253,7 @@ pnpm typecheck        # tsc --noEmit
 pnpm format           # Prettier --write
 pnpm test             # Vitest (unit y componentes)
 pnpm test:e2e         # Playwright (e2e + accesibilidad con axe)
-pnpm lighthouse       # Lighthouse CI contra el build local
+pnpm lighthouse       # Lighthouse CI contra producción (usa el Chromium de Playwright si no hay Chrome)
 ```
 
 ---
