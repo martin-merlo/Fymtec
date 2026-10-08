@@ -1,0 +1,103 @@
+/*
+ * Animaciones base: solo CSS, cero JS.
+ *
+ * - Sin JS el contenido es visible (no hay estados ocultos que dependan de JS).
+ * - .reveal usa scroll-driven animations; donde no hay soporte, el contenido
+ *   simplemente aparece quieto (progressive enhancement vía @supports).
+ * - .text-reveal es por tiempo (para el hero, que ya está en pantalla).
+ * - Con prefers-reduced-motion: las animaciones por tiempo las anula la regla
+ *   global de globals.css; las atadas al scroll ni se activan (ver abajo).
+ * - Solo se animan transform y opacity.
+ *
+ * El orden de cada elemento dentro de un grupo se pasa con --i (0, 1, 2…).
+ */
+
+@keyframes motion-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes motion-line-up {
+  from {
+    opacity: 0;
+    transform: translateY(0.6em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Aparece al entrar en pantalla, ligado al scroll. */
+@supports (animation-timeline: view()) {
+  /* Las animaciones atadas al scroll no tienen duración: la regla global de
+     reduced-motion no las alcanza, así que solo se activan si no se pidió
+     reducir el movimiento. */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: motion-fade-up linear both;
+      animation-timeline: view();
+      /* Cada elemento del grupo arranca un poco más tarde que el anterior. */
+      animation-range: entry calc(var(--i, 0) * 6%) cover
+        calc(28% + var(--i, 0) * 6%);
+    }
+  }
+}
+
+/* Titulares del hero: por líneas, con tiempo (ya están en pantalla al cargar). */
+.text-reveal-line {
+  display: block;
+  animation: motion-line-up var(--motion-duration-slow)
+    var(--motion-ease-emphasized) both;
+  animation-delay: calc(80ms + var(--i, 0) * 110ms);
+}
+
+/* Elementos que acompañan al hero (bajada, CTAs) entran después del titular. */
+.enter {
+  animation: motion-fade-up var(--motion-duration-slow) var(--motion-ease-out)
+    both;
+  animation-delay: calc(250ms + var(--i, 0) * 90ms);
+}
+
+/*
+ * Sendero de Metodología: una línea vertical detrás de los números de paso.
+ * Se dibuja (scaleY) a medida que la lista atraviesa la pantalla.
+ */
+.methodology-path::before {
+  content: "";
+  position: absolute;
+  top: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--highlight), var(--cta));
+  transform-origin: top;
+}
+
+@keyframes motion-draw-down {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  /* Las animaciones atadas al scroll no tienen duración: la regla global de
+     reduced-motion no las alcanza, así que solo se activan si no se pidió
+     reducir el movimiento. */
+  @media (prefers-reduced-motion: no-preference) {
+    .methodology-path::before {
+      animation: motion-draw-down linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 60%;
+    }
+  }
+}

@@ -146,7 +146,7 @@
 
 ## Fase 3: Home (Inicio → Metodología → Clientes → Proyectos → Contacto)
 
-- [ ] **T10. Primitivas de motion** · M · Depende de: T2
+- [x] **T10. Primitivas de motion** · M · ✅ 2026-10-07 — Solo CSS (scroll-driven + keyframes), cero JS; Motion se reserva para piezas firma. Las animaciones atadas al scroll se activan solo con `prefers-reduced-motion: no-preference` (la regla global no las alcanza; hay test de regresión).
   - **Qué:** crear `Reveal`, `Stagger` y `TextReveal` (con Motion, respetando reduced-motion) y utilidades CSS para scroll-driven animations con fallback. El contenido siempre viene renderizado en el servidor y es visible sin JS.
   - **Aceptación:**
     - Con JS desactivado, todo el contenido envuelto es visible.
@@ -155,7 +155,7 @@
   - **Verificar:** `pnpm test` (tests de componentes con reduced-motion) · manual con JS desactivado.
   - **Archivos:** `src/components/motion/Reveal.tsx`, `src/components/motion/Stagger.tsx`, `src/components/motion/TextReveal.tsx`, `src/styles/motion.css`, `tests/motion.test.tsx`.
 
-- [ ] **T11. Inicio: hero** · M · Depende de: T10, T5
+- [x] **T11. Inicio: hero** · M · ✅ 2026-10-07
   - **Qué:** hero (`#inicio`) con texto superior, titular, bajada y CTAs (principal a WhatsApp y secundario "Ver proyectos"), sobre un fondo provisorio estático. La pieza firma se suma en la fase 6.
   - **Aceptación:**
     - En 375 px, el titular, la bajada y el CTA principal están en la primera pantalla.
@@ -164,7 +164,7 @@
   - **Verificar:** `pnpm test:e2e` · Lighthouse en la preview: LCP < 2.5 s.
   - **Archivos:** `src/components/sections/Hero.tsx`, `src/content/es/site.ts`, `src/app/page.tsx`.
 
-- [ ] **T12. Inicio: servicios** · M · Depende de: T10
+- [x] **T12. Inicio: servicios** · M · ✅ 2026-10-07
   - **Qué:** bloque de servicios dentro de Inicio: 4 bloques problema → solución → proyecto relacionado, más automatización como mención menor. Entrada escalonada y feedback en hover.
   - **Aceptación:**
     - Los textos salen de `content/es/services.ts`.
@@ -173,7 +173,7 @@
   - **Verificar:** `pnpm test` · revisión de textos con vos.
   - **Archivos:** `src/components/sections/Services.tsx`, `src/content/es/services.ts`, `src/app/page.tsx`.
 
-- [ ] **T15. Metodología** · S · Depende de: T10
+- [x] **T15. Metodología** · S · ✅ 2026-10-07
   - **Qué:** sección `#metodologia` con los 4 pasos y el sendero del isotipo como línea que se dibuja con el scroll (scroll-driven animations de CSS, con fallback estático).
   - **Aceptación:**
     - Funciona sin JS.
@@ -191,7 +191,7 @@
   - **Verificar:** `pnpm test` · `pnpm build` con un fixture inválido falla.
   - **Archivos:** `src/lib/content.ts`, `src/lib/case-schema.ts`, `tests/content.test.ts`, `tests/fixtures/*.mdx`.
 
-- [ ] **T16. Clientes** · S · Depende de: T10 · 🧑 _Necesita el rubro de La Retama_
+- [x] **T16. Clientes** · S · ✅ 2026-10-07 — Sin rubro para La Retama hasta que lo confirmes.
   - **Qué:** sección `#clientes` como prueba social: nombre, rubro y qué se hizo en una línea por cliente. Si el cliente tiene proyecto publicado, ofrece "Ver proyecto". Sin logos ni testimonios.
   - **Aceptación:**
     - Datos desde `content/es/clients.ts` (o derivados de los proyectos, sin duplicar).
@@ -209,7 +209,7 @@
   - **Verificar:** `pnpm test:e2e` con fixtures · Lighthouse CLS < 0.1.
   - **Archivos:** `src/components/sections/Projects.tsx`, `src/components/case-study/ProjectCard.tsx`, `src/app/page.tsx`.
 
-- [ ] **T39. Contacto: línea de la persona detrás** · S · Depende de: T8
+- [x] **T39. Contacto: línea de la persona detrás** · S · ✅ 2026-10-07 — El link a `/estudio` se agrega en T26, para no dejar un link roto.
   - **Qué:** sumar a la sección Contacto la línea discreta "Detrás de Fymtec estoy yo, Martín…" con link a `/estudio` (reemplaza a la sección "Detrás del estudio", eliminada en v1.1).
   - **Aceptación:** un test e2e verifica que "Martín" no aparece en Inicio, Metodología, Clientes ni Proyectos.
   - **Verificar:** `pnpm test:e2e`.

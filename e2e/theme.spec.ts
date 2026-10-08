@@ -72,6 +72,7 @@ test.describe("selector de tema", () => {
     page,
   }) => {
     await page.addInitScript(() => localStorage.setItem("theme", "light"));
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
     await page.waitForTimeout(500);
     const { violations } = await new AxeBuilder({ page }).analyze();

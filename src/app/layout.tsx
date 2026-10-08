@@ -50,8 +50,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           href={whatsappUrl(contact.whatsappMessage(brand.name))}
           label={contact.whatsappAria}
         />
-        <Analytics />
-        <SpeedInsights />
+        {/* Sus scripts solo existen en Vercel; fuera de ahí darían 404. */}
+        {process.env.VERCEL && (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        )}
       </body>
     </html>
   );

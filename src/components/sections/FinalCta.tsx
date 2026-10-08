@@ -1,5 +1,7 @@
 import { EmailCta } from "@/components/contact/EmailCta";
 import { WhatsAppCta } from "@/components/contact/WhatsAppCta";
+import { brand } from "@/config/brand";
+import { behindStudio } from "@/content/es/home";
 import { finalCta } from "@/content/es/site";
 import { FINAL_CTA_ATTR, marker } from "@/lib/dom-markers";
 
@@ -18,7 +20,7 @@ export function FinalCta({ headingLevel: Heading = "h2" }: FinalCtaProps) {
       className="scroll-mt-20 px-4 py-24 sm:px-6 md:py-32 lg:px-8"
     >
       <div className="mx-auto flex max-w-4xl flex-col items-start gap-8 rounded-3xl border bg-surface p-8 sm:p-12 md:p-16">
-        <p className="text-sm tracking-widest text-fg-muted uppercase">
+        <p className="text-sm font-medium tracking-widest text-highlight uppercase">
           {finalCta.eyebrow}
         </p>
         <Heading
@@ -32,6 +34,9 @@ export function FinalCta({ headingLevel: Heading = "h2" }: FinalCtaProps) {
           <WhatsAppCta size="xl" />
           <EmailCta />
         </div>
+        <p className="border-t pt-6 text-sm text-fg-muted">
+          {behindStudio.text(brand.name)}
+        </p>
       </div>
     </section>
   );

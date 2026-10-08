@@ -26,6 +26,9 @@ test.describe("home", () => {
   test("no tiene violaciones de accesibilidad serias ni críticas", async ({
     page,
   }) => {
+    // axe evalúa el estado final: sin animaciones de entrada a medio camino
+    // (en plena animación el texto tiene opacidad parcial y da falsos positivos).
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
     const { violations } = await new AxeBuilder({ page }).analyze();
     const serious = violations.filter(
