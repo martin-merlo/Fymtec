@@ -9,6 +9,7 @@ import { isIndexable, siteUrl } from "@/config/site";
 import { common } from "@/content/es/common";
 import { contact } from "@/content/es/contact";
 import { whatsappUrl } from "@/lib/contact";
+import { DEFAULT_THEME, themeScript } from "@/lib/theme";
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,
@@ -22,7 +23,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" data-theme="dark" className={fontVariables}>
+    // suppressHydrationWarning: el script del <head> puede cambiar data-theme
+    // antes de hidratar (guía "Preventing flash before hydration" de Next).
+    <html
+      lang="es"
+      data-theme={DEFAULT_THEME}
+      className={fontVariables}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>
         <a
           href="#contenido"

@@ -11,6 +11,7 @@ type HeaderShellProps = {
   homeLabel: string;
   items: readonly NavItem[];
   cta: ReactNode;
+  themeToggle: ReactNode;
   mobileCta: ReactNode;
   labels: { open: string; close: string; nav: string };
 };
@@ -27,6 +28,7 @@ export function HeaderShell({
   homeLabel,
   items,
   cta,
+  themeToggle,
   mobileCta,
   labels,
 }: HeaderShellProps) {
@@ -89,13 +91,16 @@ export function HeaderShell({
           </ul>
         </nav>
 
-        <div className="hidden md:block">{cta}</div>
-        <MobileNav
-          items={items}
-          active={active}
-          cta={mobileCta}
-          labels={labels}
-        />
+        <div className="flex items-center gap-1 md:gap-2">
+          {themeToggle}
+          <div className="hidden md:block">{cta}</div>
+          <MobileNav
+            items={items}
+            active={active}
+            cta={mobileCta}
+            labels={labels}
+          />
+        </div>
       </div>
     </header>
   );

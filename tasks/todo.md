@@ -124,7 +124,7 @@
   - **Archivos:** `src/components/brand/Logo.tsx`, `src/components/brand/logo-paths.ts`, `src/app/icon.svg`, `src/app/apple-icon.png`, `src/components/layout/Header.tsx`, `src/components/layout/Footer.tsx`.
   - **Resultado:** isotipo trazado del logo horizontal; letras reconstruidas con geometría limpia (trazo 25, altura 173, C con arcos reales). Coincidencia con el original ≈95% de área (la diferencia es un contorno uniforme de ~1 px por el antialias del webp). Favicon SVG adaptado al tema del sistema e ícono de iOS sobre blanco.
 
-- [ ] **T38. Selector de tema** · M · Depende de: T36
+- [x] **T38. Selector de tema** · M · ✅ 2026-10-07
   - **Qué:** botón de tema en el header y en el menú móvil; preferencia en `localStorage`; script inline en `<head>` que aplica el tema antes del primer pintado; transición corta de colores (instantánea con reduced-motion). Sin dependencias.
   - **Aceptación:**
     - Por defecto oscuro; la elección se recuerda al recargar.
@@ -132,12 +132,13 @@
     - Operable con teclado; el nombre accesible indica a qué tema cambia.
     - axe sin violaciones serias en ambos temas.
   - **Verificar:** `pnpm test:e2e` (persistencia, sin parpadeo, axe en claro y oscuro).
-  - **Archivos:** `src/components/theme/ThemeToggle.tsx`, `src/components/theme/ThemeScript.tsx`, `src/app/layout.tsx`, `e2e/theme.spec.ts`.
+  - **Archivos:** `src/components/theme/ThemeToggle.tsx`, `src/lib/theme.ts`, `src/app/layout.tsx`, `src/app/globals.css`, `tests/theme.test.ts`, `e2e/theme.spec.ts`.
+  - **Resultado:** script inline en el `<head>` según la guía oficial de Next ("Preventing flash before hydration"); estado del botón con `useSyncExternalStore` sobre el atributo del DOM (sin errores de hidratación); sincronización entre pestañas; transición de colores solo durante el cambio. El test de "sin parpadeo" se verificó por mutación: falla si se quita el script.
 
 ### ✅ Checkpoint fase 2.5
 
 - [ ] El logo es fiel al original y se ve bien en los dos temas.
-- [ ] El selector de tema funciona sin parpadeo.
+- [x] El selector de tema funciona sin parpadeo.
 - [ ] **Revisión tuya.**
 
 ---

@@ -33,14 +33,15 @@ Fymtec se presenta como estudio. La persona detrás aparece de forma discreta en
   - Al cargar es transparente sobre el hero. Después de un poco de scroll pasa a una superficie con desenfoque y se compacta (**calidad y orientación**).
   - Se esconde al scrollear hacia abajo y reaparece al subir, solo en móvil.
   - Los links de ancla marcan la sección activa (**orientación**).
-- **Móvil:** menú en un panel a pantalla completa (`<dialog>` nativo), con el foco atrapado adentro y cierre con Esc. Los links entran de forma escalonada (**jerarquía**). El selector de tema también está en el menú.
+- **Móvil:** menú en un panel a pantalla completa (`<dialog>` nativo), con el foco atrapado adentro y cierre con Esc. Los links entran de forma escalonada (**jerarquía**). El selector de tema queda en la barra del header, al lado del botón de menú, siempre visible.
 - **Accesibilidad:** link "Saltar al contenido" como primer elemento enfocable y `aria-current` en la sección activa.
 
 ### 2.2 Selector de tema
 
 - **Objetivo:** dejar elegir modo claro u oscuro. El oscuro es el predeterminado.
 - **Diseño:** botón de ícono (sol / luna) con nombre accesible que dice a qué tema cambia ("Cambiar a modo claro").
-- **Comportamiento:** la elección se guarda en `localStorage`. Un script mínimo en el `<head>` aplica el tema guardado antes del primer pintado (sin parpadeo). El cambio de colores tiene una transición corta de fondo y texto (**calidad**); con reduced-motion es instantáneo.
+- **Ubicación:** barra del header, en todos los tamaños.
+- **Comportamiento:** la elección se guarda en `localStorage` y se sincroniza entre pestañas. Un script mínimo en el `<head>` aplica el tema guardado antes del primer pintado (sin parpadeo). El cambio de colores tiene una transición corta de fondo y texto (**calidad**); con reduced-motion es instantáneo.
 - **Logo:** cambia de variante según el tema (la montaña pizarra se aclara en fondo oscuro), sin cargar otra imagen.
 
 ### 2.3 Botón flotante de WhatsApp

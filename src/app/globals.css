@@ -106,6 +106,17 @@
     @apply outline-2 outline-offset-2 outline-ring;
   }
 
+  /* Transición de colores solo mientras se cambia de tema (ver ThemeToggle). */
+  html.theme-switching,
+  html.theme-switching *,
+  html.theme-switching *::before,
+  html.theme-switching *::after {
+    transition-property:
+      background-color, color, border-color, fill, stroke !important;
+    transition-duration: var(--motion-duration-base) !important;
+    transition-timing-function: var(--motion-ease-out) !important;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
